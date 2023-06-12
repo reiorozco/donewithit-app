@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { Image, SafeAreaView, StyleSheet, Text } from "react-native";
 
 export default function App() {
+  const handlePress = () => console.log("Text pressed");
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <SafeAreaView style={styles.container}>
+      <Text numberOfLines={1} onPress={handlePress}>
+        Open up App.tsx to start working on your app!
+      </Text>
+
+      {/* // Local Images */}
+      {/*<Image source={require("./assets/icon.png")} />*/}
+
+      {/* // Network Images */}
+      <Image
+        source={{
+          uri: "https://picsum.photos/200/300",
+        }}
+        style={{ width: 200, height: 300 }}
+        blurRadius={5}
+      />
+
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
