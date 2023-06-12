@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  Alert,
+  Button,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -9,6 +11,16 @@ import {
 
 export default function App() {
   const handlePress = () => console.log("Text pressed");
+
+  const createButtonAlert = () =>
+    Alert.alert("Alert Title", "My Alert Msg", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,6 +32,9 @@ export default function App() {
       {/*<Image source={require("./assets/icon.png")} />*/}
 
       {/* // Network Images */}
+      <Text numberOfLines={1} onPress={handlePress}>
+        Images and Touchables
+      </Text>
       <TouchableOpacity onPress={handlePress}>
         <Image
           source={{
@@ -29,6 +44,19 @@ export default function App() {
           blurRadius={5}
         />
       </TouchableOpacity>
+
+      <Text numberOfLines={1} onPress={handlePress}>
+        Buttons
+      </Text>
+      <Button title="Click Me" onPress={handlePress} color="orange" />
+
+      <Button
+        title="Alert function"
+        onPress={() => alert("This is an alert.")}
+        color="red"
+      />
+
+      <Button title="Button Alert" onPress={createButtonAlert} />
 
       <StatusBar style="auto" />
     </SafeAreaView>
