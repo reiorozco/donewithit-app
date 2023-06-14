@@ -1,64 +1,29 @@
 import { StatusBar as StatusBarExpo } from "expo-status-bar";
 import {
-  Alert,
-  Button,
-  Image,
   Platform,
   SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   StatusBar,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+  Text,
 } from "react-native";
 
 export default function App() {
-  const handlePress = () => console.log("Text pressed");
-
-  const createButtonAlert = () =>
-    Alert.alert("Alert Title", "My Alert Msg", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-    ]);
+  const { height, width } = useWindowDimensions();
+  const isPortrait = height > width;
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text numberOfLines={1} onPress={handlePress}>
-        Open up App.tsx to start working on your app!
-      </Text>
-
-      {/* // Local Images */}
-      {/*<Image source={require("./assets/icon.png")} />*/}
-
-      {/* // Network Images */}
-      <Text numberOfLines={1} onPress={handlePress}>
-        Images and Touchables
-      </Text>
-      <TouchableOpacity onPress={handlePress}>
-        <Image
-          source={{
-            uri: "https://picsum.photos/200/300",
-          }}
-          style={{ width: 200, height: 300 }}
-          blurRadius={5}
-        />
-      </TouchableOpacity>
-
-      <Text numberOfLines={1} onPress={handlePress}>
-        Buttons
-      </Text>
-      <Button title="Click Me" onPress={handlePress} color="orange" />
-
-      <Button
-        title="Alert function"
-        onPress={() => alert("This is an alert.")}
-        color="red"
-      />
-
-      <Button title="Button Alert" onPress={createButtonAlert} />
+      <View
+        style={{
+          backgroundColor: "lightblue",
+          width: "100%",
+          height: isPortrait ? "30%" : "100%",
+        }}
+      >
+        <Text>div</Text>
+      </View>
 
       <StatusBarExpo style="auto" />
     </SafeAreaView>
