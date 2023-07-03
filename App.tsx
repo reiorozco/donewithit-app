@@ -32,9 +32,6 @@ export default function App() {
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
-
-          flexWrap: "wrap",
-          alignContent: "center",
         }}
       >
         <View
@@ -49,25 +46,14 @@ export default function App() {
             backgroundColor: "gold",
             height: 100,
             width: 100,
+
+            top: 20,
+            position: "absolute",
           }}
         />
         <View
           style={{
             backgroundColor: "tomato",
-            height: 100,
-            width: 100,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: "gray",
-            height: 100,
-            width: 100,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: "green",
             height: 100,
             width: 100,
           }}
