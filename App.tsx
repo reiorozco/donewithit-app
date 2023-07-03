@@ -25,6 +25,55 @@ export default function App() {
         <Text>div</Text>
       </View>
 
+      <View
+        style={{
+          backgroundColor: "white",
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+
+          flexWrap: "wrap",
+          alignContent: "center",
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: "dodgerblue",
+            height: 100,
+            width: 100,
+          }}
+        />
+        <View
+          style={{
+            backgroundColor: "gold",
+            height: 100,
+            width: 100,
+          }}
+        />
+        <View
+          style={{
+            backgroundColor: "tomato",
+            height: 100,
+            width: 100,
+          }}
+        />
+        <View
+          style={{
+            backgroundColor: "gray",
+            height: 100,
+            width: 100,
+          }}
+        />
+        <View
+          style={{
+            backgroundColor: "green",
+            height: 100,
+            width: 100,
+          }}
+        />
+      </View>
+
       <StatusBarExpo style="auto" />
     </SafeAreaView>
   );
@@ -34,7 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    alignItems: "center",
+    // alignItems: "center",
     // justifyContent: "center",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
