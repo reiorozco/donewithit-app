@@ -7,8 +7,8 @@ import ViewImageScreen from "./app/screens/ViewImageScreen";
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      {/*<WelcomeScreen />*/}
-      <ViewImageScreen />
+      <WelcomeScreen />
+      {/*<ViewImageScreen />*/}
 
       <StatusBarExpo style="auto" />
     </SafeAreaView>
