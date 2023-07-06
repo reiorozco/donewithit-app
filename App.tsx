@@ -16,7 +16,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       {/*<WelcomeScreen />*/}
-      {/*<ViewImageScreen />*/}
+      <ViewImageScreen />
 
       {/*<View*/}
       {/*  style={{*/}
@@ -32,7 +32,7 @@ export default function App() {
       {/*  />*/}
       {/*</View>*/}
 
-      <ListingDetailsScreen />
+      {/*<ListingDetailsScreen />*/}
 
       <StatusBarExpo style="auto" />
     </SafeAreaView>
