@@ -5,19 +5,19 @@ import AppText from "./AppText";
 import colors from "../config/colors";
 
 interface Props {
-  title: string;
+  description: string;
   image: any;
-  subTitle: string;
+  title: string;
 }
 
-function ListItem({ subTitle, title, image }: Props) {
+function ListItem({ description, title, image }: Props) {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={image} />
 
       <View>
         <AppText style={styles.title}>{title}</AppText>
-        <AppText style={styles.subTitle}>{subTitle}</AppText>
+        <AppText style={styles.subTitle}>{description}</AppText>
       </View>
     </View>
   );
