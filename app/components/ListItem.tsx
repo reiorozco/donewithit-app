@@ -26,6 +26,7 @@ function ListItem({ description, title, image }: Props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    padding: 10,
   },
   image: {
     borderRadius: 35,
