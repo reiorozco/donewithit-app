@@ -7,16 +7,18 @@ import AppText from "./AppText";
 import colors from "../config/colors";
 
 interface Props {
-  subTitle: string;
   title: string;
-  ImageComponent?: ReactNode;
+  subTitle?: string;
+  image?: any;
+  IconComponent?: ReactNode;
   onPress?: () => void;
   renderLeftActions?: () => ReactNode;
   renderRightActions?: () => ReactNode;
 }
 
 function ListItem({
-  ImageComponent,
+  IconComponent,
+  image,
   onPress,
   renderLeftActions,
   renderRightActions,
@@ -34,7 +36,9 @@ function ListItem({
         onPress={onPress}
       >
         <View style={styles.container}>
-          {ImageComponent}
+          {image && <Image style={styles.image} source={image} />}
+
+          {IconComponent}
 
           <View style={styles.detailsContainer}>
             <AppText style={styles.title}>{title}</AppText>
@@ -48,12 +52,13 @@ function ListItem({
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.white,
     flexDirection: "row",
     padding: 10,
   },
   detailsContainer: {
-    marginLeft: 10,
     justifyContent: "center",
+    marginLeft: 10,
   },
   image: {
     borderRadius: 35,

@@ -1,14 +1,22 @@
 import React, { ReactNode } from "react";
 import { StatusBar as StatusBarExpo } from "expo-status-bar";
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import {
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleProp,
+  StyleSheet,
+  ViewStyle,
+} from "react-native";
 
 interface Props {
   children: ReactNode;
+  style: StyleProp<ViewStyle>;
 }
 
-function Screen({ children }: Props) {
+function Screen({ children, style }: Props) {
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={[styles.screen, style]}>
       {children}
 
       <StatusBarExpo style="auto" />

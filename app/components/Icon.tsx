@@ -2,12 +2,9 @@ import React from "react";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-interface Props {
-  name: "email";
-  backgroundColor?: string;
-  iconColor?: string;
-  size?: number;
-}
+import IconT from "../interfaces/Icon";
+
+interface Props extends IconT {}
 
 function Icon({
   iconColor = "#fff",

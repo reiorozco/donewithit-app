@@ -4,10 +4,13 @@ import MessagesScreen from "./app/screens/MessagesScreen";
 import Screen from "./app/components/Screen";
 import Icon from "./app/components/Icon";
 import ListItem from "./app/components/ListItem";
+import AccountScreen from "./app/screens/AccountScreen";
+
+import colors from "./app/config/colors";
 
 export default function App() {
   return (
-    <Screen>
+    <Screen style={styles.screen}>
       <View style={styles.container}>
         {/*<WelcomeScreen />*/}
         {/*<ViewImageScreen />*/}
@@ -30,11 +33,7 @@ export default function App() {
 
         {/*<MessagesScreen />*/}
 
-        <ListItem
-          subTitle="My subtitle"
-          ImageComponent={<Icon name="email" />}
-          title="My title"
-        />
+        <AccountScreen />
       </View>
     </Screen>
   );
@@ -47,5 +46,9 @@ const styles = StyleSheet.create({
     // backgroundColor: "white",
     // flex: 1,
     // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+
+  screen: {
+    backgroundColor: colors.light,
   },
 });
