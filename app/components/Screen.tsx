@@ -6,18 +6,19 @@ import {
   StatusBar,
   StyleProp,
   StyleSheet,
+  View,
   ViewStyle,
 } from "react-native";
 
 interface Props {
   children: ReactNode;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 
 function Screen({ children, style }: Props) {
   return (
     <SafeAreaView style={[styles.screen, style]}>
-      {children}
+      <View style={style}>{children}</View>
 
       <StatusBarExpo style="auto" />
     </SafeAreaView>

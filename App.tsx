@@ -1,40 +1,38 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
-import MessagesScreen from "./app/screens/MessagesScreen";
 import Screen from "./app/components/Screen";
-import Icon from "./app/components/Icon";
-import ListItem from "./app/components/ListItem";
 import AccountScreen from "./app/screens/AccountScreen";
+import ListingsScreen from "./app/screens/ListingsScreen";
 
 import colors from "./app/config/colors";
 
 export default function App() {
   return (
     <Screen style={styles.screen}>
-      <View style={styles.container}>
-        {/*<WelcomeScreen />*/}
-        {/*<ViewImageScreen />*/}
+      {/*<WelcomeScreen />*/}
+      {/*<ViewImageScreen />*/}
 
-        {/*<View*/}
-        {/*  style={{*/}
-        {/*    backgroundColor: "#f8f4f4",*/}
-        {/*    padding: 20,*/}
-        {/*    paddingTop: 100,*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <Card*/}
-        {/*    title="Red Jacket for sale"*/}
-        {/*    subTitle="$100"*/}
-        {/*    image={require("./app/assets/jacket.jpg")}*/}
-        {/*  />*/}
-        {/*</View>*/}
+      {/*<View*/}
+      {/*  style={{*/}
+      {/*    backgroundColor: "#f8f4f4",*/}
+      {/*    padding: 20,*/}
+      {/*    paddingTop: 100,*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <Card*/}
+      {/*    title="Red Jacket for sale"*/}
+      {/*    subTitle="$100"*/}
+      {/*    image={require("./app/assets/jacket.jpg")}*/}
+      {/*  />*/}
+      {/*</View>*/}
 
-        {/*<ListingDetailsScreen />*/}
+      {/*<ListingDetailsScreen />*/}
 
-        {/*<MessagesScreen />*/}
+      {/*<MessagesScreen />*/}
 
-        <AccountScreen />
-      </View>
+      <AccountScreen />
+
+      <ListingsScreen />
     </Screen>
   );
 }
@@ -50,5 +48,6 @@ const styles = StyleSheet.create({
 
   screen: {
     backgroundColor: colors.light,
+    padding: 20,
   },
 });
