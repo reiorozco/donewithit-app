@@ -20,7 +20,7 @@ function ListingDetailsScreen() {
           <ListItem
             image={require("../assets/avatar.jpg")}
             title="Rei Orozco"
-            description="5 Listings"
+            subTitle="5 Listings"
           />
         </View>
       </View>

@@ -77,6 +77,7 @@ const initialMessages: Message[] = [
 
 function MessagesScreen() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleDelete = (message: Message) => {
     const newMessages = messages.filter((m) => m.id !== message.id);
@@ -91,7 +92,7 @@ function MessagesScreen() {
       renderItem={({ item }) => (
         <ListItem
           title={item.title}
-          description={item.description}
+          subTitle={item.description}
           image={item.image}
           onPress={() => console.log("List item pressed!", item)}
           renderRightActions={() => (
@@ -100,6 +101,8 @@ function MessagesScreen() {
         />
       )}
       ItemSeparatorComponent={ListItemSeparator}
+      refreshing={refreshing}
+      onRefresh={() => setMessages(initialMessages)}
     />
   );
 }

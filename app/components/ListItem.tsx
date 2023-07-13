@@ -7,21 +7,21 @@ import AppText from "./AppText";
 import colors from "../config/colors";
 
 interface Props {
-  description: string;
-  image: any;
+  subTitle: string;
   title: string;
+  ImageComponent?: ReactNode;
   onPress?: () => void;
-  renderRightActions?: () => ReactNode;
   renderLeftActions?: () => ReactNode;
+  renderRightActions?: () => ReactNode;
 }
 
 function ListItem({
-  description,
-  title,
-  image,
+  ImageComponent,
   onPress,
-  renderRightActions,
   renderLeftActions,
+  renderRightActions,
+  subTitle,
+  title,
 }: Props) {
   return (
     <Swipeable
@@ -34,11 +34,11 @@ function ListItem({
         onPress={onPress}
       >
         <View style={styles.container}>
-          <Image style={styles.image} source={image} />
+          {ImageComponent}
 
-          <View>
+          <View style={styles.detailsContainer}>
             <AppText style={styles.title}>{title}</AppText>
-            <AppText style={styles.subTitle}>{description}</AppText>
+            {subTitle && <AppText style={styles.subTitle}>{subTitle}</AppText>}
           </View>
         </View>
       </TouchableHighlight>
@@ -51,10 +51,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
   },
+  detailsContainer: {
+    marginLeft: 10,
+    justifyContent: "center",
+  },
   image: {
     borderRadius: 35,
     height: 70,
-    marginRight: 10,
     width: 70,
   },
   subTitle: {

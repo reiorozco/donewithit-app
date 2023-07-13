@@ -2,6 +2,8 @@ import { StyleSheet, View } from "react-native";
 
 import MessagesScreen from "./app/screens/MessagesScreen";
 import Screen from "./app/components/Screen";
+import Icon from "./app/components/Icon";
+import ListItem from "./app/components/ListItem";
 
 export default function App() {
   return (
@@ -26,7 +28,13 @@ export default function App() {
 
         {/*<ListingDetailsScreen />*/}
 
-        <MessagesScreen />
+        {/*<MessagesScreen />*/}
+
+        <ListItem
+          subTitle="My subtitle"
+          ImageComponent={<Icon name="email" />}
+          title="My title"
+        />
       </View>
     </Screen>
   );
