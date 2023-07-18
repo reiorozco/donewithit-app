@@ -6,10 +6,16 @@ import AppPicker from "./app/components/AppPicker";
 
 import colors from "./app/config/colors";
 
+const categories = [
+  { label: "Furniture", value: 1 },
+  { label: "Clothing", value: 2 },
+  { label: "Cameras", value: 3 },
+];
+
 export default function App() {
   return (
     <Screen style={styles.screen}>
-      <AppPicker placeholder="Applications" icon="apps" />
+      <AppPicker placeholder="Applications" icon="apps" items={categories} />
 
       <AppTextInput icon="email" placeholder="Enter email" />
     </Screen>

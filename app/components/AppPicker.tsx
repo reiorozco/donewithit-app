@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Button,
+  FlatList,
   Modal,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -12,13 +13,15 @@ import AppText from "./AppText";
 import Screen from "./Screen";
 
 import colors from "../config/colors";
+import PickerItem from "./PickerItem";
 
 interface Props {
   placeholder: string;
   icon?: "apps";
+  items?: { label: string; value: number }[];
 }
 
-function AppPicker({ icon, placeholder }: Props) {
+function AppPicker({ icon, placeholder, items }: Props) {
   const [modaVisible, setModalVisible] = useState(false);
 
   return (
@@ -47,6 +50,17 @@ function AppPicker({ icon, placeholder }: Props) {
       <Modal visible={modaVisible} animationType="slide">
         <Screen>
           <Button title="Close" onPress={() => setModalVisible(false)} />
+
+          <FlatList
+            data={items}
+            keyExtractor={(item) => item.value.toString()}
+            renderItem={({ item }) => (
+              <PickerItem
+                label={item.label}
+                onPress={() => console.log(item)}
+              />
+            )}
+          />
         </Screen>
       </Modal>
     </>
