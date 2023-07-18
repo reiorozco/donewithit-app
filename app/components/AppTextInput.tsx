@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  Platform,
-  StyleSheet,
-  TextInput,
-  TextInputProps,
-  View,
-} from "react-native";
+import { StyleSheet, TextInput, TextInputProps, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
+import defaultStyles from "../config/styles";
 
 interface Props extends TextInputProps {
   icon?: "email";
@@ -26,7 +21,7 @@ function AppTextInput({ icon, ...textInputProps }: Props) {
         />
       )}
 
-      <TextInput style={styles.textInput} {...textInputProps} />
+      <TextInput style={defaultStyles.text} {...textInputProps} />
     </View>
   );
 }
@@ -43,11 +38,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-  },
-  textInput: {
-    color: colors.dark,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontSize: 18,
   },
 });
 
