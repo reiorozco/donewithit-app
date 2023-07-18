@@ -11,17 +11,26 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppText from "./AppText";
 import Screen from "./Screen";
-
-import colors from "../config/colors";
 import PickerItem from "./PickerItem";
+
+import Item from "../interfaces/Item";
+import colors from "../config/colors";
 
 interface Props {
   placeholder: string;
   icon?: "apps";
-  items?: { label: string; value: number }[];
+  items?: Item[];
+  selectedItem?: Item;
+  onSelectItem: (item: Item) => void;
 }
 
-function AppPicker({ icon, placeholder, items }: Props) {
+function AppPicker({
+  icon,
+  placeholder,
+  items,
+  onSelectItem,
+  selectedItem,
+}: Props) {
   const [modaVisible, setModalVisible] = useState(false);
 
   return (
@@ -37,7 +46,9 @@ function AppPicker({ icon, placeholder, items }: Props) {
             />
           )}
 
-          <AppText style={styles.text}>{placeholder}</AppText>
+          <AppText style={styles.text}>
+            {selectedItem ? selectedItem.label : placeholder}
+          </AppText>
 
           <MaterialCommunityIcons
             name="chevron-down"
@@ -57,7 +68,10 @@ function AppPicker({ icon, placeholder, items }: Props) {
             renderItem={({ item }) => (
               <PickerItem
                 label={item.label}
-                onPress={() => console.log(item)}
+                onPress={() => {
+                  setModalVisible(false);
+                  onSelectItem(item);
+                }}
               />
             )}
           />

@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { StyleSheet } from "react-native";
 
 import Screen from "./app/components/Screen";
 import AppTextInput from "./app/components/AppTextInput";
 import AppPicker from "./app/components/AppPicker";
 
+import Item from "./app/interfaces/Item";
 import colors from "./app/config/colors";
 
 const categories = [
@@ -13,9 +15,17 @@ const categories = [
 ];
 
 export default function App() {
+  const [category, setCategory] = useState<Item>(categories[0]);
+
   return (
     <Screen style={styles.screen}>
-      <AppPicker placeholder="Applications" icon="apps" items={categories} />
+      <AppPicker
+        placeholder="Applications"
+        icon="apps"
+        items={categories}
+        selectedItem={category}
+        onSelectItem={(item) => setCategory(item)}
+      />
 
       <AppTextInput icon="email" placeholder="Enter email" />
     </Screen>
