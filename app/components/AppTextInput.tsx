@@ -6,7 +6,7 @@ import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 
 interface Props extends TextInputProps {
-  icon?: "email";
+  icon?: "email" | "lock";
 }
 
 function AppTextInput({ icon, ...textInputProps }: Props) {
