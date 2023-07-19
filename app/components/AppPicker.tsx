@@ -31,8 +31,9 @@ function AppPicker({
   onSelectItem,
   selectedItem,
 }: Props) {
-  const [modaVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
+  console.log(selectedItem)
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
@@ -58,7 +59,7 @@ function AppPicker({
         </View>
       </TouchableWithoutFeedback>
 
-      <Modal visible={modaVisible} animationType="slide">
+      <Modal visible={modalVisible} animationType="slide">
         <Screen>
           <Button title="Close" onPress={() => setModalVisible(false)} />
 

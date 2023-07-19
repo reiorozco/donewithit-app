@@ -1,28 +1,33 @@
 import React from "react";
 import { useFormikContext } from "formik";
+import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 
 import AppTextInput, { AppTextInputProps } from "../AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 
-import FormValues from "../../interfaces/formValues";
-
-interface Props extends AppTextInputProps {
-  name: keyof FormValues;
+interface Props<T> extends AppTextInputProps {
+  name: keyof T;
 }
 
-function AppFormField({ name, ...textInputProps }: Props) {
-  const { handleChange, handleBlur, touched, errors } =
-    useFormikContext<FormValues>();
+function AppFormField<T>({ name, ...textInputProps }: Props<T>) {
+  const { handleChange, handleBlur, touched, errors } = useFormikContext<T>();
 
   return (
     <>
       <AppTextInput
-        onBlur={handleBlur(name)}
+        onBlur={
+          handleBlur(name) as
+            | ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void)
+            | undefined
+        }
         onChangeText={handleChange(name)}
         {...textInputProps}
       />
 
-      <ErrorMessage error={errors[name]} visible={touched[name]} />
+      <ErrorMessage
+        error={errors[name] as string | undefined}
+        visible={touched[name] as boolean | undefined}
+      />
     </>
   );
 }

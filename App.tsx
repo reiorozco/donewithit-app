@@ -1,17 +1,10 @@
 import { StyleSheet } from "react-native";
 
-import LoginScreen from "./app/components/LoginScreen";
-
 import colors from "./app/config/colors";
-
-// const categories = [
-//   { label: "Furniture", value: 1 },
-//   { label: "Clothing", value: 2 },
-//   { label: "Cameras", value: 3 },
-// ];
+import ListingEditScreen from "./app/screens/ListingEditScreen";
 
 export default function App() {
-  return <LoginScreen />;
+  return <ListingEditScreen />;
 }
 
 const styles = StyleSheet.create({

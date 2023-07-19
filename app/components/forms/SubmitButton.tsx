@@ -3,14 +3,14 @@ import { useFormikContext } from "formik";
 
 import AppButton from "../AppButton";
 
-import FormValues from "../../interfaces/formValues";
+import FormLoginValues from "../../interfaces/formLoginValues";
 
 interface Props {
   title: string;
 }
 
 function SubmitButton({ title }: Props) {
-  const { handleSubmit } = useFormikContext<FormValues>();
+  const { handleSubmit } = useFormikContext<FormLoginValues>();
 
   return <AppButton title={title} onPress={handleSubmit} />;
 }

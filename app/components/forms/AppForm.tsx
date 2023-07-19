@@ -1,27 +1,22 @@
 import React, { ReactNode } from "react";
-import { Formik, FormikHelpers } from "formik";
+import { Formik, FormikHelpers, FormikValues } from "formik";
 import { ObjectSchema } from "yup";
 
-import FormValues from "../../interfaces/formValues";
-
-interface Props {
-  initialValues: FormValues;
+interface Props<T> {
+  initialValues: T;
   validationSchema?: ObjectSchema<any>;
-  onSubmit: (
-    values: FormValues,
-    formikHelpers: FormikHelpers<FormValues>
-  ) => void | Promise<any>;
+  onSubmit: (values: T, formikHelpers: FormikHelpers<T>) => void | Promise<any>;
   children: ReactNode;
 }
 
-function AppForm({
+function AppForm<T extends FormikValues>({
   children,
   initialValues,
   onSubmit,
   validationSchema,
-}: Props) {
+}: Props<T>) {
   return (
-    <Formik
+    <Formik<T>
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
