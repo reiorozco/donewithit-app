@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { Formik, FormikHelpers } from "formik";
 import { ObjectSchema } from "yup";
 
-import FormValues from "../interfaces/formValues";
+import FormValues from "../../interfaces/formValues";
 
 interface Props {
   initialValues: FormValues;

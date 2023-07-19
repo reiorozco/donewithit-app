@@ -1,10 +1,10 @@
 import React from "react";
 import { useFormikContext } from "formik";
 
-import AppTextInput, { AppTextInputProps } from "./AppTextInput";
+import AppTextInput, { AppTextInputProps } from "../AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 
-import FormValues from "../interfaces/formValues";
+import FormValues from "../../interfaces/formValues";
 
 interface Props extends AppTextInputProps {
   name: keyof FormValues;
