@@ -1,11 +1,11 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
-import { Formik } from "formik";
 import * as Yup from "yup";
 
 import Screen from "./Screen";
 import AppFormField from "./AppFormField";
 import SubmitButton from "./SubmitButton";
+import AppForm from "./AppForm";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -17,7 +17,7 @@ function LoginScreen() {
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo.png")} />
 
-      <Formik
+      <AppForm
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
@@ -28,34 +28,28 @@ function LoginScreen() {
           }, 400);
         }}
       >
-        {() => {
-          return (
-            <>
-              <AppFormField
-                autoCapitalize="none"
-                autoCorrect={false}
-                icon="email"
-                keyboardType="email-address"
-                name="email"
-                placeholder="Email"
-                textContentType="emailAddress"
-              />
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="email"
+          keyboardType="email-address"
+          name="email"
+          placeholder="Email"
+          textContentType="emailAddress"
+        />
 
-              <AppFormField
-                autoCapitalize="none"
-                autoCorrect={false}
-                icon="lock"
-                name="password"
-                placeholder="Password"
-                textContentType="password"
-                secureTextEntry
-              />
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="lock"
+          name="password"
+          placeholder="Password"
+          textContentType="password"
+          secureTextEntry
+        />
 
-              <SubmitButton title="Login" />
-            </>
-          );
-        }}
-      </Formik>
+        <SubmitButton title="Login" />
+      </AppForm>
     </Screen>
   );
 }
