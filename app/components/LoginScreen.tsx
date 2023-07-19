@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, Text } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { Formik } from "formik";
+import * as Yup from "yup";
 
 import Screen from "./Screen";
 import AppTextInput from "./AppTextInput";
 import AppButton from "./AppButton";
+import AppText from "./AppText";
+import ErrorMessage from "./ErrorMessage";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
+});
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -16,19 +24,7 @@ function LoginScreen() {
 
       <Formik
         initialValues={{ email: "", password: "" }}
-        validate={(values) => {
-          const errors: { email?: string } = {};
-
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-
-          return errors;
-        }}
+        validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
@@ -61,8 +57,8 @@ function LoginScreen() {
                 placeholder="Email"
                 textContentType="emailAddress"
               />
-              {<Text>{errors.email}</Text> && touched.email && (
-                <Text>{errors.email}</Text>
+              {<ErrorMessage error={errors.email} /> && touched.email && (
+                <ErrorMessage error={errors.email} />
               )}
 
               <AppTextInput
@@ -74,8 +70,8 @@ function LoginScreen() {
                 textContentType="password"
                 secureTextEntry
               />
-              {<Text>{errors.password}</Text> && touched.password && (
-                <Text>{errors.password}</Text>
+              {<ErrorMessage error={errors.password} /> && touched.password && (
+                <ErrorMessage error={errors.password} />
               )}
 
               <AppButton title="Login" onPress={handleSubmit} />
