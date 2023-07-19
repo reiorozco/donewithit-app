@@ -5,7 +5,7 @@ import Icon from "../components/Icon";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 
-import IconT from "../interfaces/Icon";
+import IconT from "../interfaces/icon";
 import colors from "../config/colors";
 
 interface MenuItem {

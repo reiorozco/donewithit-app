@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 import Screen from "./Screen";
-import AppButton from "./AppButton";
 import AppFormField from "./AppFormField";
+import SubmitButton from "./SubmitButton";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -13,9 +13,6 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo.png")} />
@@ -31,20 +28,7 @@ function LoginScreen() {
           }, 400);
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          setFieldTouched,
-          /* and other goodies */
-        }) => {
-          console.log("touched", touched);
-          console.log(errors);
-
+        {() => {
           return (
             <>
               <AppFormField
@@ -67,7 +51,7 @@ function LoginScreen() {
                 secureTextEntry
               />
 
-              <AppButton title="Login" onPress={handleSubmit} />
+              <SubmitButton title="Login" />
             </>
           );
         }}

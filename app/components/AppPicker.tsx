@@ -13,7 +13,7 @@ import AppText from "./AppText";
 import Screen from "./Screen";
 import PickerItem from "./PickerItem";
 
-import Item from "../interfaces/Item";
+import Item from "../interfaces/item";
 import colors from "../config/colors";
 
 interface Props {

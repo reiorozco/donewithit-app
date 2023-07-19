@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import IconT from "../interfaces/Icon";
+import IconT from "../interfaces/icon";
 
 interface Props extends IconT {}
 
