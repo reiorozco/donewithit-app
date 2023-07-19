@@ -7,10 +7,11 @@ import colors from "../config/colors";
 
 interface Props {
   error?: string;
+  visible?: boolean;
 }
 
-function ErrorMessage({ error }: Props) {
-  if (!error) return null;
+function ErrorMessage({ error, visible }: Props) {
+  if (!visible || !error) return null;
 
   return <AppText style={styles.error}>{error}</AppText>;
 }
