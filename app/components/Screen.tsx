@@ -18,7 +18,7 @@ interface Props {
 function Screen({ children, style }: Props) {
   return (
     <SafeAreaView style={[styles.screen, style]}>
-      <View style={style}>{children}</View>
+      <View style={[styles.view, style]}>{children}</View>
 
       <StatusBarExpo style="auto" />
     </SafeAreaView>
@@ -27,7 +27,10 @@ function Screen({ children, style }: Props) {
 
 const styles = StyleSheet.create({
   screen: {
+    flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  view: {
     flex: 1,
   },
 });
