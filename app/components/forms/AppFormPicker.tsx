@@ -10,9 +10,10 @@ interface Props<T> {
   items: Item[];
   name: keyof T;
   placeholder: string;
+  width?: number | string;
 }
 
-function AppFormPicker<T>({ items, name, placeholder }: Props<T>) {
+function AppFormPicker<T>({ items, name, width, placeholder }: Props<T>) {
   const { errors, setFieldValue, touched, values } = useFormikContext<T>();
 
   return (
@@ -22,6 +23,7 @@ function AppFormPicker<T>({ items, name, placeholder }: Props<T>) {
         onSelectItem={(item) => setFieldValue(name as string, item)}
         placeholder={placeholder}
         selectedItem={values[name] as Item}
+        width={width}
       />
 
       <ErrorMessage

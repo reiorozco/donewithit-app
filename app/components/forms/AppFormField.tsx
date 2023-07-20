@@ -7,9 +7,10 @@ import ErrorMessage from "./ErrorMessage";
 
 interface Props<T> extends AppTextInputProps {
   name: keyof T;
+  width?: string | number;
 }
 
-function AppFormField<T>({ name, ...textInputProps }: Props<T>) {
+function AppFormField<T>({ name, width, ...textInputProps }: Props<T>) {
   const { handleChange, handleBlur, touched, errors } = useFormikContext<T>();
 
   return (
@@ -21,6 +22,7 @@ function AppFormField<T>({ name, ...textInputProps }: Props<T>) {
             | undefined
         }
         onChangeText={handleChange(name)}
+        width={width}
         {...textInputProps}
       />
 

@@ -7,11 +7,16 @@ import defaultStyles from "../config/styles";
 
 export interface AppTextInputProps extends TextInputProps {
   icon?: "email" | "lock";
+  width?: number | string;
 }
 
-function AppTextInput({ icon, ...textInputProps }: AppTextInputProps) {
+function AppTextInput({
+  icon,
+  width = "100%",
+  ...textInputProps
+}: AppTextInputProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width }]}>
       {icon && (
         <MaterialCommunityIcons
           name={icon}
@@ -38,7 +43,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 10,
     padding: 15,
-    width: "100%",
   },
   icon: {
     marginRight: 10,
