@@ -4,9 +4,11 @@ import * as Yup from "yup";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import Screen from "../components/Screen";
+import AppFormPicker from "../components/forms/AppFormPicker";
+import CategoryPickerItem from "../components/CategoryPickerItem";
 
 import FormEditValues from "../interfaces/formEditValues";
-import AppFormPicker from "../components/forms/AppFormPicker";
+import Item from "../interfaces/item";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -15,10 +17,41 @@ const validationSchema = Yup.object().shape({
   category: Yup.object().required().nullable().label("Category"),
 });
 
-const categories = [
-  { label: "Furniture", value: 1 },
-  { label: "Clothing", value: 2 },
-  { label: "Cameras", value: 3 },
+const categories: Item[] = [
+  { label: "Furniture", value: 1, name: "floor-lamp", backgroundColor: "red" },
+  { label: "Cars", value: 2, name: "car", backgroundColor: "orange" },
+  { label: "Cameras", value: 3, name: "camera", backgroundColor: "gold" },
+  { label: "Games", value: 4, name: "cards", backgroundColor: "palegreen" },
+  {
+    label: "Clothing",
+    value: 5,
+    name: "shoe-heel",
+    backgroundColor: "mediumaquamarine",
+  },
+  {
+    label: "Sports",
+    value: 6,
+    name: "basketball",
+    backgroundColor: "lightblue",
+  },
+  {
+    label: "Movies & Music",
+    value: 7,
+    name: "headphones",
+    backgroundColor: "dodgerblue",
+  },
+  {
+    label: "Books",
+    value: 8,
+    name: "book-open-blank-variant",
+    backgroundColor: "purple",
+  },
+  {
+    label: "Other",
+    value: 9,
+    name: "window-maximize",
+    backgroundColor: "gray",
+  },
 ];
 
 type FormValues = FormEditValues;
@@ -55,6 +88,8 @@ function ListingEditScreen() {
           name="category"
           placeholder="Category"
           width={"50%"}
+          PickerItemComponent={CategoryPickerItem}
+          numberOfColumns={3}
         />
 
         <AppFormField<FormValues>

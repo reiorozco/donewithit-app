@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { useFormikContext } from "formik";
 
 import AppPicker from "../AppPicker";
@@ -10,10 +10,19 @@ interface Props<T> {
   items: Item[];
   name: keyof T;
   placeholder: string;
+  numberOfColumns?: number;
+  PickerItemComponent?: ReactNode | Function;
   width?: number | string;
 }
 
-function AppFormPicker<T>({ items, name, width, placeholder }: Props<T>) {
+function AppFormPicker<T>({
+  items,
+  name,
+  PickerItemComponent,
+  placeholder,
+  width,
+  numberOfColumns,
+}: Props<T>) {
   const { errors, setFieldValue, touched, values } = useFormikContext<T>();
 
   return (
@@ -24,6 +33,8 @@ function AppFormPicker<T>({ items, name, width, placeholder }: Props<T>) {
         placeholder={placeholder}
         selectedItem={values[name] as Item}
         width={width}
+        PickerItemComponent={PickerItemComponent}
+        numberOfColumns={numberOfColumns}
       />
 
       <ErrorMessage

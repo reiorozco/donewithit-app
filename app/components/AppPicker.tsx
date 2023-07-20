@@ -17,19 +17,23 @@ import Item from "../interfaces/item";
 import colors from "../config/colors";
 
 interface Props {
+  onSelectItem: (item: Item) => void;
   placeholder: string;
   icon?: "apps";
   items?: Item[];
+  numberOfColumns?: number;
+  PickerItemComponent?: Function;
   selectedItem?: Item;
-  onSelectItem: (item: Item) => void;
   width?: string | number;
 }
 
 function AppPicker({
   icon,
-  placeholder,
   items,
+  numberOfColumns = 1,
   onSelectItem,
+  PickerItemComponent = PickerItem,
+  placeholder,
   selectedItem,
   width = "100%",
 }: Props) {
@@ -69,9 +73,10 @@ function AppPicker({
           <FlatList
             data={items}
             keyExtractor={(item) => item.value.toString()}
+            numColumns={numberOfColumns}
             renderItem={({ item }) => (
-              <PickerItem
-                label={item.label}
+              <PickerItemComponent
+                item={item}
                 onPress={() => {
                   setModalVisible(false);
                   onSelectItem(item);
