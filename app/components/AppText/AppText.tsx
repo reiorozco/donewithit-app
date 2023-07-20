@@ -1,15 +1,19 @@
 import React, { ReactNode } from "react";
-import { Platform, StyleSheet, Text } from "react-native";
+import { Platform, StyleSheet, Text, TextProps } from "react-native";
 
 import defaultStyles from "../../config/styles";
 
-interface Props {
+interface Props extends TextProps {
   children: ReactNode;
   style?: any;
 }
 
-function AppText({ children, style }: Props) {
-  return <Text style={[defaultStyles.text, style]}>{children}</Text>;
+function AppText({ children, style, ...otherTextProps }: Props) {
+  return (
+    <Text style={[defaultStyles.text, style]} {...otherTextProps}>
+      {children}
+    </Text>
+  );
 }
 
 const styles = StyleSheet.create({
