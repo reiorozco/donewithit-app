@@ -2,8 +2,8 @@ import React from "react";
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
-import { AppForm, AppFormField, SubmitButton } from "./forms";
-import Screen from "./Screen";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
+import Screen from "../components/Screen";
 
 import FormLoginValues from "../interfaces/formLoginValues";
 

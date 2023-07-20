@@ -3,9 +3,9 @@ import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AppText from "./AppText";
+import AppText from "../AppText";
 
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
 interface Props {
   title: string;
