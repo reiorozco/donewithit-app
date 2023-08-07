@@ -12,7 +12,7 @@ import * as ImagePicker from "expo-image-picker";
 import colors from "../config/colors";
 
 interface Props {
-  imageUri: string | null;
+  imageUri?: string | null;
   onChangeImage: (imageUri: string | null) => void;
 }
 

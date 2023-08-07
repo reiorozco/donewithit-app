@@ -1,17 +1,25 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
+import ImageInputList from "./app/components/ImageInputList";
+
 import colors from "./app/config/colors";
-import ImageInput from "./app/components/ImageInput";
 
 export default function App() {
-  const [image, setImage] = useState<string | null>(null);
+  const [imageUris, setImageUris] = useState<(string | null)[]>([]);
+
+  const handleAddImage = (imageUri: string | null) =>
+    setImageUris([...imageUris, imageUri]);
+
+  const handleRemoveImage = (imageUri: string | null) =>
+    setImageUris(imageUris.filter((uri) => uri !== imageUri));
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <ImageInput
-        imageUri={image}
-        onChangeImage={(imageUri) => setImage(imageUri)}
+      <ImageInputList
+        imageUris={imageUris}
+        onAddImage={handleAddImage}
+        onRemoveImage={handleRemoveImage}
       />
     </View>
   );
