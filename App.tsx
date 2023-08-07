@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import ImageInputList from "./app/components/ImageInputList";
+import Screen from "./app/components/Screen";
 
 import colors from "./app/config/colors";
 
@@ -15,13 +16,13 @@ export default function App() {
     setImageUris(imageUris.filter((uri) => uri !== imageUri));
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <Screen>
       <ImageInputList
         imageUris={imageUris}
         onAddImage={handleAddImage}
         onRemoveImage={handleRemoveImage}
       />
-    </View>
+    </Screen>
   );
 }
 
