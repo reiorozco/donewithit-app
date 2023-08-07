@@ -3,6 +3,7 @@ import { Button, Image, StyleSheet, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import colors from "./app/config/colors";
+import ImageInput from "./app/components/ImageInput";
 
 export default function App() {
   const [image, setImage] = useState<string | null>(null);
@@ -45,6 +46,8 @@ export default function App() {
       {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
       )}
+
+      <ImageInput imageUri={image} />
     </View>
   );
 }
