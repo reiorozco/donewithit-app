@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Image, StyleSheet, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
@@ -6,6 +6,14 @@ import colors from "./app/config/colors";
 
 export default function App() {
   const [image, setImage] = useState<string | null>(null);
+
+  const requestPermission = async () => {
+    const response = await ImagePicker.requestCameraPermissionsAsync();
+
+    console.log(response);
+
+    if (!response.granted) alert("You need to enable permission to access.");
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -22,6 +30,10 @@ export default function App() {
       setImage(result.assets[0].uri);
     }
   };
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
