@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { Button, Image, StyleSheet, View } from "react-native";
-import * as ImagePicker from "expo-image-picker";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 
 import colors from "./app/config/colors";
 import ImageInput from "./app/components/ImageInput";
@@ -8,46 +7,12 @@ import ImageInput from "./app/components/ImageInput";
 export default function App() {
   const [image, setImage] = useState<string | null>(null);
 
-  const requestPermission = async () => {
-    const response = await ImagePicker.requestCameraPermissionsAsync();
-
-    console.log(response);
-
-    if (!response.granted) alert("You need to enable permission to access.");
-  };
-
-  const pickImage = async () => {
-    try {
-      // No permissions request is necessary for launching the image library
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-      console.log(result);
-
-      if (!result.canceled) {
-        setImage(result.assets[0].uri);
-      }
-    } catch (e) {
-      console.log("Error reading an image", e);
-    }
-  };
-
-  useEffect(() => {
-    requestPermission().then((r) => console.log(r));
-  }, []);
-
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
-
-      <ImageInput imageUri={image} />
+      <ImageInput
+        imageUri={image}
+        onChangeImage={(imageUri) => setImage(imageUri)}
+      />
     </View>
   );
 }
