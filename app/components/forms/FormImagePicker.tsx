@@ -13,11 +13,11 @@ function FormImagePicker<T>({ name }: Props<T>) {
   const imageUris = values[name] as string[];
 
   const handleAddImage = (imageUri: string | null) =>
-    setFieldValue(name, [...imageUris, imageUri]);
+    setFieldValue(name as string, [...imageUris, imageUri]);
 
   const handleRemoveImage = (imageUri: string | null) =>
     setFieldValue(
-      name,
+      name as string,
       imageUris.filter((uri) => uri !== imageUri)
     );
 
