@@ -1,13 +1,12 @@
-import { StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 
-import Screen from "./app/components/Screen";
-import ListingEditScreen from "./app/screens/ListingEditScreen";
-
-import colors from "./app/config/colors";
+import colors from "./config/colors";
 
 export default function App() {
   return (
-      <ListingEditScreen />
+    <SafeAreaView>
+      <Text>Home Screen</Text>
+    </SafeAreaView>
   );
 }
 
