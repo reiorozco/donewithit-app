@@ -3,4 +3,5 @@ export default interface FormEditValues {
   price: string;
   description: string;
   category?: string | null;
+  images: string[];
 }

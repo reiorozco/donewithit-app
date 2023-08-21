@@ -11,7 +11,7 @@ interface Props<T> {
   name: keyof T;
   placeholder: string;
   numberOfColumns?: number;
-  PickerItemComponent?: ReactNode | Function;
+  PickerItemComponent?: Function;
   width?: number | string;
 }
 

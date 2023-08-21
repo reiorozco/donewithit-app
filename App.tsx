@@ -1,28 +1,13 @@
-import { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import ImageInputList from "./app/components/ImageInputList";
 import Screen from "./app/components/Screen";
+import ListingEditScreen from "./app/screens/ListingEditScreen";
 
 import colors from "./app/config/colors";
 
 export default function App() {
-  const [imageUris, setImageUris] = useState<(string | null)[]>([]);
-
-  const handleAddImage = (imageUri: string | null) =>
-    setImageUris([...imageUris, imageUri]);
-
-  const handleRemoveImage = (imageUri: string | null) =>
-    setImageUris(imageUris.filter((uri) => uri !== imageUri));
-
   return (
-    <Screen>
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={handleAddImage}
-        onRemoveImage={handleRemoveImage}
-      />
-    </Screen>
+      <ListingEditScreen />
   );
 }
 
