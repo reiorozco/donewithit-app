@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
-import * as Location from "expo-location";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import Screen from "../components/Screen";
@@ -9,6 +8,7 @@ import AppFormPicker from "../components/forms/AppFormPicker";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import FormImagePicker from "../components/forms/FormImagePicker";
 
+import useLocation from "../hooks/useLocation";
 import FormEditValues from "../interfaces/formEditValues";
 import Item from "../interfaces/item";
 
@@ -60,27 +60,7 @@ const categories: Item[] = [
 type FormValues = FormEditValues;
 
 function ListingEditScreen() {
-  const [location, setLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  }>();
-  const getLocation = async () => {
-    const { granted } = await Location.requestForegroundPermissionsAsync();
-    if (!granted) return;
-
-    const result = await Location.getLastKnownPositionAsync();
-    if (result) {
-      const {
-        coords: { latitude, longitude },
-      } = result;
-
-      setLocation({ latitude, longitude });
-    }
-  };
-
-  useEffect(() => {
-    getLocation();
-  }, []);
+  const location = useLocation();
 
   return (
     <Screen style={styles.container}>
