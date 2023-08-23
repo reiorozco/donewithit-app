@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 import * as Yup from "yup";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
@@ -13,6 +14,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen() {
+  const router = useRouter();
+
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo.png")} />
@@ -25,6 +28,8 @@ function LoginScreen() {
             alert(JSON.stringify(values, null, 2));
 
             setSubmitting(false);
+
+            router.push("(tabs)");
           }, 400);
         }}
       >

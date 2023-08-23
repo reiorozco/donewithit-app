@@ -14,8 +14,8 @@ export default function Layout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Feed",
-          headerTitle: "Tweets",
+          title: "Listing",
+          headerShown: false,
 
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons name="home" size={size} color={color} />
@@ -23,7 +23,33 @@ export default function Layout() {
         }}
       />
 
-      <Tabs.Screen name="details" />
+      <Tabs.Screen
+        name="listingEdit"
+        options={{
+          title: "Listing Edit",
+          headerShown: false,
+
+          tabBarIcon: ({ size, color }) => (
+            <MaterialCommunityIcons
+              name="application-edit"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: "Account",
+          headerShown: false,
+
+          tabBarIcon: ({ size, color }) => (
+            <MaterialCommunityIcons name="account" size={size} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

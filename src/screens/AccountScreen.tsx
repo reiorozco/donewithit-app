@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import Icon from "../components/Icon";
 import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
+import Screen from "../components/Screen";
 
 import IconT from "../interfaces/icon";
 import colors from "../config/colors";
@@ -33,7 +34,7 @@ const menuItems: MenuItem[] = [
 
 function AccountScreen() {
   return (
-    <>
+    <Screen>
       <View style={styles.container}>
         <ListItem
           subTitle="rfoc15@gmail.com"
@@ -67,7 +68,7 @@ function AccountScreen() {
           IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
         />
       </View>
-    </>
+    </Screen>
   );
 }
 
