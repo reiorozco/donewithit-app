@@ -3,7 +3,7 @@ import { Button, Text } from "react-native";
 import { Stack } from "expo-router/stack";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
-import Screen from "./components/Screen";
+import Screen from "../../src/components/Screen";
 
 function TweetDetails() {
   const router = useRouter();

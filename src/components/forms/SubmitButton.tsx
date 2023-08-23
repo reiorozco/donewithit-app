@@ -7,12 +7,13 @@ import FormLoginValues from "../../interfaces/formLoginValues";
 
 interface Props {
   title: string;
+  color?: "primary" | "secondary";
 }
 
-function SubmitButton({ title }: Props) {
+function SubmitButton({ title, color }: Props) {
   const { handleSubmit } = useFormikContext<FormLoginValues>();
 
-  return <AppButton title={title} onPress={handleSubmit} />;
+  return <AppButton title={title} onPress={handleSubmit} color={color} />;
 }
 
 export default SubmitButton;

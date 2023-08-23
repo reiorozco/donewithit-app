@@ -6,7 +6,7 @@ import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 
 export interface AppTextInputProps extends TextInputProps {
-  icon?: "email" | "lock";
+  icon?: "email" | "lock" | "account";
   width?: number | string;
 }
 
