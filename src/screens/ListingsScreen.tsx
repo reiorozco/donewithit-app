@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
 import Card from "../components/Card";
 import Screen from "../components/Screen";
@@ -18,11 +19,13 @@ const listings = [
     id: 2,
     title: "Couch in great condition",
     price: 9999,
-    image: require("../assets/jacket.jpg"),
+    image: require("../assets/couch.jpg"),
   },
 ];
 
 function ListingsScreen() {
+  const router = useRouter();
+
   return (
     <Screen>
       <FlatList
@@ -33,6 +36,12 @@ function ListingsScreen() {
             title={item.title}
             subTitle={"$" + item.price}
             image={item.image}
+            onPress={() =>
+              router.push({
+                pathname: "(tabs)/(feed)/listingDetails",
+                params: item,
+              })
+            }
           />
         )}
       />

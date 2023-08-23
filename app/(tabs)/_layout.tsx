@@ -12,10 +12,10 @@ export default function Layout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(feed)"
         options={{
-          title: "Listing",
           headerShown: false,
+          title: "Feed",
 
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons name="home" size={size} color={color} />
@@ -30,11 +30,7 @@ export default function Layout() {
           headerShown: false,
 
           tabBarIcon: ({ size, color }) => (
-            <MaterialCommunityIcons
-              name="application-edit"
-              size={size}
-              color={color}
-            />
+            <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
         }}
       />
