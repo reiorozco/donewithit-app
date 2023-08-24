@@ -6,6 +6,7 @@ import Card from "../components/Card";
 import Screen from "../components/Screen";
 
 import colors from "../config/colors";
+import routes from "./routes";
 
 const listings = [
   {
@@ -38,7 +39,7 @@ function ListingsScreen() {
             image={item.image}
             onPress={() =>
               router.push({
-                pathname: "(tabs)/(feed)/listingDetails",
+                pathname: routes.LISTING_DETAILS,
                 params: item,
               })
             }

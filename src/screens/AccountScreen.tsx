@@ -9,6 +9,7 @@ import Screen from "../components/Screen";
 
 import IconT from "../interfaces/icon";
 import colors from "../config/colors";
+import routes from "./routes";
 
 interface MenuItem {
   icon: IconT;
@@ -31,7 +32,7 @@ const menuItems: MenuItem[] = [
       name: "email",
       backgroundColor: colors.secondary,
     },
-    targetScreen: "(tabs)/(account)/messages",
+    targetScreen: routes.MESSAGES,
   },
 ];
 

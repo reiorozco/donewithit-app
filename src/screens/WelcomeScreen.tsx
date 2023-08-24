@@ -1,8 +1,10 @@
 import React from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
 
 import AppButton from "../components/AppButton";
-import { useRouter } from "expo-router";
+
+import routes from "./routes";
 
 function WelcomeScreen() {
   const router = useRouter();
@@ -20,12 +22,12 @@ function WelcomeScreen() {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <AppButton title="Login" onPress={() => router.push("login")} />
+        <AppButton title="Login" onPress={() => router.push(routes.LOGIN)} />
 
         <AppButton
           title="Register"
           color="secondary"
-          onPress={() => router.push("register")}
+          onPress={() => router.push(routes.REGISTER)}
         />
       </View>
     </ImageBackground>

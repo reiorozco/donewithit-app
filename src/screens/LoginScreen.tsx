@@ -7,6 +7,7 @@ import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import Screen from "../components/Screen";
 
 import FormLoginValues from "../interfaces/formLoginValues";
+import routes from "./routes";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -29,7 +30,7 @@ function LoginScreen() {
 
             setSubmitting(false);
 
-            router.push("(tabs)/(feed)");
+            router.push(routes.FEED);
           }, 400);
         }}
       >

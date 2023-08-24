@@ -3,6 +3,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import colors from "../../src/config/colors";
+import routes from "../../src/screens/routes";
+
 
 export default function Layout() {
   return (
@@ -65,7 +67,7 @@ function NewListingButton() {
   const router = useRouter();
 
   return (
-    <TouchableOpacity onPress={() => router.push("listingEdit")}>
+    <TouchableOpacity onPress={() => router.push(routes.LISTING_EDIT)}>
       <View style={styles.container}>
         <MaterialCommunityIcons
           name="plus-circle"
