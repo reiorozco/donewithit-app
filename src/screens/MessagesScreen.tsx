@@ -4,6 +4,7 @@ import { FlatList } from "react-native";
 import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
+import Screen from "../components/Screen";
 
 interface Message {
   id: number;
@@ -86,24 +87,26 @@ function MessagesScreen() {
   };
 
   return (
-    <FlatList
-      data={messages}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <ListItem
-          title={item.title}
-          subTitle={item.description}
-          image={item.image}
-          onPress={() => console.log("List item pressed!", item)}
-          renderRightActions={() => (
-            <ListItemDeleteAction onPress={() => handleDelete(item)} />
-          )}
-        />
-      )}
-      ItemSeparatorComponent={ListItemSeparator}
-      refreshing={refreshing}
-      onRefresh={() => setMessages(initialMessages)}
-    />
+    <Screen>
+      <FlatList
+        data={messages}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <ListItem
+            title={item.title}
+            subTitle={item.description}
+            image={item.image}
+            onPress={() => console.log("List item pressed!", item)}
+            renderRightActions={() => (
+              <ListItemDeleteAction onPress={() => handleDelete(item)} />
+            )}
+          />
+        )}
+        ItemSeparatorComponent={ListItemSeparator}
+        refreshing={refreshing}
+        onRefresh={() => setMessages(initialMessages)}
+      />
+    </Screen>
   );
 }
 

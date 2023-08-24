@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
 
 import Icon from "../components/Icon";
 import ListItem from "../components/lists/ListItem";
@@ -12,6 +13,7 @@ import colors from "../config/colors";
 interface MenuItem {
   icon: IconT;
   title: string;
+  targetScreen?: string;
 }
 
 const menuItems: MenuItem[] = [
@@ -29,10 +31,13 @@ const menuItems: MenuItem[] = [
       name: "email",
       backgroundColor: colors.secondary,
     },
+    targetScreen: "(tabs)/(account)/messages",
   },
 ];
 
 function AccountScreen() {
+  const router = useRouter();
+
   return (
     <Screen>
       <View style={styles.container}>
@@ -56,6 +61,7 @@ function AccountScreen() {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
+              onPress={() => router.push(item.targetScreen || "")}
             />
           )}
           ItemSeparatorComponent={ListItemSeparator}

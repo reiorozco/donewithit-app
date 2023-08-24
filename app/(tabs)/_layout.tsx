@@ -30,13 +30,17 @@ export default function Layout() {
           headerShown: false,
 
           tabBarIcon: ({ size, color }) => (
-            <MaterialCommunityIcons name="home" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="application-edit"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
 
       <Tabs.Screen
-        name="account"
+        name="(account)"
         options={{
           title: "Account",
           headerShown: false,

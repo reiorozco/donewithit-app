@@ -22,14 +22,14 @@ function LoginScreen() {
 
       <AppForm<FormLoginValues>
         initialValues={{ email: "", password: "" }}
-        validationSchema={validationSchema}
+        // validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
 
             setSubmitting(false);
 
-            router.push("(tabs)");
+            router.push("(tabs)/(feed)");
           }, 400);
         }}
       >
