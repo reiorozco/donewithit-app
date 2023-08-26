@@ -39,7 +39,11 @@ function ListingsScreen() {
             onPress={() =>
               router.push({
                 pathname: routes.LISTING_DETAILS,
-                params: item,
+                params: {
+                  title: item.title,
+                  price: item.price,
+                  imageUrl: item.images[0].url,
+                },
               })
             }
           />

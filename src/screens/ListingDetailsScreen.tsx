@@ -8,16 +8,16 @@ import ListItem from "../components/lists/ListItem";
 import colors from "../config/colors";
 
 function ListingDetailsScreen() {
-  const listing = useLocalSearchParams();
+  const { title, price, imageUrl } = useLocalSearchParams();
 
   return (
     <View>
-      <Image style={styles.image} source={listing.image} />
+      <Image style={styles.image} source={{ uri: imageUrl as string }} />
 
       <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>{listing.title}</AppText>
+        <AppText style={styles.title}>{title}</AppText>
 
-        <AppText style={styles.price}>${listing.price}</AppText>
+        <AppText style={styles.price}>${price}</AppText>
 
         <View style={styles.userContainer}>
           <ListItem
