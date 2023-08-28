@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import Listing from "../interfaces/listing";
@@ -7,6 +7,7 @@ import listingsApi from "../api/listings";
 
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
+import AppActivityIndicator from "../components/AppActivityIndicator";
 import Card from "../components/Card";
 import Screen from "../components/Screen";
 
@@ -46,7 +47,7 @@ function ListingsScreen() {
         </View>
       )}
 
-      {loading && <ActivityIndicator animating size="large" />}
+      <AppActivityIndicator visible={loading} />
 
       <FlatList
         data={listings}
