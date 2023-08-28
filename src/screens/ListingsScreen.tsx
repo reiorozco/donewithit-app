@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import Listing from "../interfaces/listing";
 import listingsApi from "../api/listings";
 
+import AppText from "../components/AppText";
+import AppButton from "../components/AppButton";
 import Card from "../components/Card";
 import Screen from "../components/Screen";
 
-import colors from "../config/colors";
 import routes from "./routes";
 
 function ListingsScreen() {
   const router = useRouter();
 
   const [listings, setListings] = useState<Listing[]>([]);
+  const [error, setError] = useState(false);
 
   const loadListings = async () => {
-    const response = await listingsApi.getListings();
+    const { data, ok } = await listingsApi.getListings();
 
-    if (response.data) setListings(response.data);
+    if (!ok) return setError(true);
+
+    if (data) {
+      setError(false);
+      setListings(data);
+    }
   };
 
   useEffect(() => {
@@ -27,7 +34,15 @@ function ListingsScreen() {
   }, []);
 
   return (
-    <Screen>
+    <Screen style={styles.screen}>
+      {error && (
+        <View>
+          <AppText>Couldn't retrieve the listings</AppText>
+
+          <AppButton title="Retry" onPress={loadListings} />
+        </View>
+      )}
+
       <FlatList
         data={listings}
         keyExtractor={(item) => item.id.toString()}
@@ -55,8 +70,9 @@ function ListingsScreen() {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 20,
-    backgroundColor: colors.light,
+    paddingBottom: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
 });
 
