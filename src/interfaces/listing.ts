@@ -1,15 +1,17 @@
 export default interface Listing {
   id: number;
   title: string;
+  price: number;
+  categoryId: number;
+  userId: number;
+
   images: {
     url: string;
     thumbnailUrl: string;
   }[];
 
-  price: number;
-  categoryId: number;
-  userId: number;
-  location: {
+  description?: string;
+  location?: {
     latitude: number;
     longitude: number;
   };
