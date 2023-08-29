@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import Listing from "../interfaces/listing";
 import listingsApi from "../api/listings";
+import useApi from "../hooks/useApi";
 
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
@@ -15,23 +16,12 @@ import routes from "./routes";
 
 function ListingsScreen() {
   const router = useRouter();
-
-  const [listings, setListings] = useState<Listing[]>([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const loadListings = async () => {
-    setLoading(true);
-    const { data, ok } = await listingsApi.getListings();
-    setLoading(false);
-
-    if (!ok) return setError(true);
-
-    if (data) {
-      setError(false);
-      setListings(data);
-    }
-  };
+  const {
+    request: loadListings,
+    loading,
+    data: listings,
+    error,
+  } = useApi<Listing[]>(listingsApi.getListings);
 
   useEffect(() => {
     loadListings();
