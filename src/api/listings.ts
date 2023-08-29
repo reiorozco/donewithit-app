@@ -1,26 +1,34 @@
 import Listing from "../interfaces/listing";
+import FormEditValues from "../interfaces/formEditValues";
 
 import apiClient from "./client";
 
 const ENDPOINT = "/listings";
 
+interface AddListingT extends FormEditValues {
+  location?: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
 const getListings = () => apiClient.get<Listing[]>(ENDPOINT);
 
 const addListing = ({
   title,
-  categoryId,
+  category,
   price,
   images,
   description,
   location,
-}: Listing) => {
-  // content-type
+}: AddListingT) => {
   const data = new FormData();
   data.append("title", title);
-  data.append("price", price.toString());
-  data.append("categoryId", categoryId.toString());
+  data.append("price", price);
 
+  if (category) data.append("categoryId", category.value.toString());
   if (description) data.append("description", description);
+  if (location) data.append("location", JSON.stringify(location));
 
   images.forEach((image, index) =>
     data.append("images", {
@@ -30,9 +38,9 @@ const addListing = ({
     } as unknown as Blob)
   );
 
-  if (location) data.append("location", JSON.stringify(location));
-
-  return apiClient.post(ENDPOINT, data);
+  return apiClient.post(ENDPOINT, data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };
 
 export default {
