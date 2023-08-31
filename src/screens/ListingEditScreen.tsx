@@ -13,6 +13,7 @@ import FormEditValues from "../interfaces/formEditValues";
 import Item from "../interfaces/item";
 import listingsApi from "../api/listings";
 import UploadScreen from "./UploadScreen";
+import { FormikHelpers } from "formik";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -66,7 +67,10 @@ function ListingEditScreen() {
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const handleSubmit = async (listing: FormEditValues) => {
+  const handleSubmit = async (
+    listing: FormEditValues,
+    { resetForm }: FormikHelpers<FormEditValues>
+  ) => {
     setProgress(0);
     setUploadVisible(true);
     const result = await listingsApi.addListing(
@@ -78,16 +82,25 @@ function ListingEditScreen() {
         setProgress(progress);
       }
     );
-    setUploadVisible(false);
 
-    if (!result.ok) return alert("Could not save the listing.");
+    if (!result.ok) {
+      setUploadVisible(false);
+      return alert("Could not save the listing.");
+    }
 
-    alert("Success");
+    // Hardcode Progress
+    setProgress(1);
+
+    resetForm();
   };
 
   return (
     <Screen style={styles.container}>
-      <UploadScreen progress={progress} visible={uploadVisible} />
+      <UploadScreen
+        progress={progress}
+        visible={uploadVisible}
+        onDone={() => setUploadVisible(false)}
+      />
 
       <AppForm<FormValues>
         initialValues={{

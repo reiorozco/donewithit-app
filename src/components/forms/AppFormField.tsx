@@ -11,7 +11,8 @@ interface Props<T> extends AppTextInputProps {
 }
 
 function AppFormField<T>({ name, width, ...textInputProps }: Props<T>) {
-  const { handleChange, handleBlur, touched, errors } = useFormikContext<T>();
+  const { handleChange, handleBlur, touched, errors, setFieldValue, values } =
+    useFormikContext<T>();
 
   return (
     <>
@@ -21,7 +22,8 @@ function AppFormField<T>({ name, width, ...textInputProps }: Props<T>) {
             | ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void)
             | undefined
         }
-        onChangeText={handleChange(name)}
+        onChangeText={(text) => setFieldValue(name as string, text)}
+        value={values[name] as string | undefined}
         width={width}
         {...textInputProps}
       />
