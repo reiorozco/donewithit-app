@@ -14,14 +14,10 @@ interface AddListingT extends FormEditValues {
 
 const getListings = () => apiClient.get<Listing[]>(ENDPOINT);
 
-const addListing = ({
-  title,
-  category,
-  price,
-  images,
-  description,
-  location,
-}: AddListingT) => {
+const addListing = (
+  { title, category, price, images, description, location }: AddListingT,
+  onUploadProgress: (progressPercentage: number) => void
+) => {
   const data = new FormData();
   data.append("title", title);
   data.append("price", price);
@@ -40,6 +36,13 @@ const addListing = ({
 
   return apiClient.post(ENDPOINT, data, {
     headers: { "Content-Type": "multipart/form-data" },
+
+    onUploadProgress: (progressEvent) => {
+      console.log("Test onUploadProgress");
+
+      if (progressEvent.total)
+        onUploadProgress(progressEvent.loaded / progressEvent.total);
+    },
   });
 };
 
