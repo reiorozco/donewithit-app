@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Yup from "yup";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
@@ -17,6 +18,18 @@ const validationSchema = Yup.object().shape({
 function LoginScreen() {
   const router = useRouter();
 
+  const storeData = async (value: { id: string }) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("user-id", jsonValue);
+
+      const userId = await AsyncStorage.getItem("user-id");
+      if (userId != null) console.log(JSON.parse(userId));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo.png")} />
@@ -27,6 +40,7 @@ function LoginScreen() {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
+            storeData({ id: values.email });
 
             setSubmitting(false);
 

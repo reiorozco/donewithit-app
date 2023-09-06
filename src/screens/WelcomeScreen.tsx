@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
+import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 
 import AppButton from "../components/AppButton";
 
@@ -8,6 +9,11 @@ import routes from "./routes";
 
 function WelcomeScreen() {
   const router = useRouter();
+  const { isConnected, isInternetReachable } = useNetInfo();
+
+  useEffect(() => {
+    NetInfo.fetch().then((netInfoState) => console.log(netInfoState));
+  }, []);
 
   return (
     <ImageBackground
