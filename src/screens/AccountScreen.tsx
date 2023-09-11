@@ -10,6 +10,7 @@ import Screen from "../components/Screen";
 import IconT from "../interfaces/icon";
 import colors from "../config/colors";
 import routes from "./routes";
+import cache from "../utility/cache";
 
 interface MenuItem {
   icon: IconT;
@@ -73,6 +74,7 @@ function AccountScreen() {
         <ListItem
           title="Log Out"
           IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+          onPress={() => cache.getStoreData("id")}
         />
       </View>
     </Screen>

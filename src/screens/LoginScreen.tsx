@@ -9,6 +9,7 @@ import Screen from "../components/Screen";
 
 import FormLoginValues from "../interfaces/formLoginValues";
 import routes from "./routes";
+import cache from "../utility/cache";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -40,7 +41,7 @@ function LoginScreen() {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
-            storeData({ id: values.email });
+            cache.store("id", values.email);
 
             setSubmitting(false);
 
