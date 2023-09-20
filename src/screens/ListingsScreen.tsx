@@ -47,6 +47,7 @@ function ListingsScreen() {
             title={item.title}
             subTitle={"$" + item.price}
             imageUrl={item.images[0].url}
+            thumbnailUrl={item.images[0].thumbnailUrl}
             onPress={() =>
               router.push({
                 pathname: routes.LISTING_DETAILS,
@@ -54,6 +55,7 @@ function ListingsScreen() {
                   title: item.title,
                   price: item.price,
                   imageUrl: item.images[0].url,
+                  thumbnailUrl: item.images[0].thumbnailUrl,
                 },
               })
             }

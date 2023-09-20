@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import { Image } from "expo-image";
 
 import AppText from "./AppText";
 
@@ -14,14 +10,19 @@ interface Props {
   imageUrl: string;
   subTitle: string;
   title: string;
+  thumbnailUrl?: string;
   onPress?: () => void;
 }
 
-function Card({ subTitle, title, imageUrl, onPress }: Props) {
+function Card({ subTitle, title, imageUrl, onPress, thumbnailUrl }: Props) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
-        <Image style={styles.image} source={{ uri: imageUrl }} />
+        <Image
+          style={styles.image}
+          source={{ uri: imageUrl }}
+          placeholder={{ uri: thumbnailUrl }}
+        />
 
         <View style={styles.detailsContainer}>
           <AppText style={styles.title} numberOfLines={1}>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import { Image } from "expo-image";
 
 import AppText from "../components/AppText";
 import ListItem from "../components/lists/ListItem";
@@ -8,11 +9,15 @@ import ListItem from "../components/lists/ListItem";
 import colors from "../config/colors";
 
 function ListingDetailsScreen() {
-  const { title, price, imageUrl } = useLocalSearchParams();
+  const { title, price, imageUrl, thumbnailUrl } = useLocalSearchParams();
 
   return (
     <View>
-      <Image style={styles.image} source={{ uri: imageUrl as string }} />
+      <Image
+        style={styles.image}
+        source={{ uri: imageUrl as string }}
+        placeholder={{ uri: thumbnailUrl as string }}
+      />
 
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{title}</AppText>
