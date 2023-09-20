@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Yup from "yup";
 
-import { AppForm, AppFormField, SubmitButton } from "../components/forms";
+import {
+  AppForm,
+  AppFormField,
+  ErrorMessage,
+  SubmitButton,
+} from "../components/forms";
 import Screen from "../components/Screen";
 
 import FormLoginValues from "../interfaces/formLoginValues";
-import routes from "./routes";
+import authApi from "../api/auth";
 import cache from "../utility/cache";
+import routes from "./routes";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -18,6 +24,8 @@ const validationSchema = Yup.object().shape({
 
 function LoginScreen() {
   const router = useRouter();
+
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const storeData = async (value: { id: string }) => {
     try {
@@ -39,16 +47,26 @@ function LoginScreen() {
         initialValues={{ email: "", password: "" }}
         // validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            cache.store("id", values.email);
+          setTimeout(async () => {
+            // alert(JSON.stringify(values, null, 2));
+
+            const result = await authApi.login(values.email, values.password);
+            if (!result.ok) return setLoginFailed(true);
+            setLoginFailed(false);
+
+            await cache.store("id", values.email);
 
             setSubmitting(false);
 
-            router.push(routes.FEED);
+            router.replace(routes.FEED);
           }, 400);
         }}
       >
+        <ErrorMessage
+          error="Invalid email and/or password."
+          visible={loginFailed}
+        />
+
         <AppFormField
           autoCapitalize="none"
           autoCorrect={false}

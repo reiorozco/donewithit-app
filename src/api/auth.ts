@@ -1,6 +1,6 @@
 import client from "./client";
 
 const login = (email: string, password: string) =>
-  client.post("/auth", { email, password });
+  client.post<string, { error: string }>("/auth", { email, password });
 
-export { login };
+export default { login };
