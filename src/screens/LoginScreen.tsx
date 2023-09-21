@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Yup from "yup";
+import jwtDecode from "jwt-decode";
 
 import {
   AppForm,
@@ -13,6 +14,7 @@ import {
 import Screen from "../components/Screen";
 
 import FormLoginValues from "../interfaces/formLoginValues";
+import AuthContext, { User } from "../auth/context";
 import authApi from "../api/auth";
 import cache from "../utility/cache";
 import routes from "./routes";
@@ -23,6 +25,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen() {
+  const authContext = useContext(AuthContext);
   const router = useRouter();
 
   const [loginFailed, setLoginFailed] = useState(false);
@@ -53,6 +56,11 @@ function LoginScreen() {
             const result = await authApi.login(values.email, values.password);
             if (!result.ok) return setLoginFailed(true);
             setLoginFailed(false);
+            if (result.data != null) {
+              const user = jwtDecode<User>(result.data);
+              console.log("User: ", user);
+              authContext?.setUser(user);
+            }
 
             await cache.store("id", values.email);
 
