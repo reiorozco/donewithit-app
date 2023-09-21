@@ -8,8 +8,8 @@ export interface User {
 }
 
 const AuthContext = React.createContext<{
-  user: User;
-  setUser: (user: User) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
 } | null>(null);
 
 export default AuthContext;

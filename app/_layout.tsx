@@ -4,15 +4,10 @@ import { ThemeProvider } from "@react-navigation/native";
 
 import OfflineNotice from "../src/components/OfflineNotice";
 import navigationTheme from "../src/config/navigationTheme";
-import AuthContext from "../src/auth/context";
+import AuthContext, { User } from "../src/auth/context";
 
 export default function Layout() {
-  const [user, setUser] = useState({
-    email: "",
-    iat: 0,
-    name: "",
-    userId: 0,
-  });
+  const [user, setUser] = useState<User | null>(null);
 
   return (
     <ThemeProvider value={navigationTheme}>

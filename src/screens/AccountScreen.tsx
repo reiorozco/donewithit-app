@@ -46,8 +46,8 @@ function AccountScreen() {
     <Screen>
       <View style={styles.container}>
         <ListItem
-          title={authContext?.user.name as string}
-          subTitle={authContext?.user.email}
+          title={authContext?.user?.name as string}
+          subTitle={authContext?.user?.email}
           image={require("../assets/avatar.jpg")}
         />
       </View>
@@ -76,7 +76,11 @@ function AccountScreen() {
         <ListItem
           title="Log Out"
           IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
-          onPress={() => cache.getStoreData("id")}
+          onPress={() => {
+            cache.getStoreData("id");
+            authContext?.setUser(null);
+            router.replace("/login");
+          }}
         />
       </View>
     </Screen>
