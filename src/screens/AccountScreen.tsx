@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -11,6 +11,7 @@ import IconT from "../interfaces/icon";
 import colors from "../config/colors";
 import routes from "./routes";
 import cache from "../utility/cache";
+import AuthContext from "../auth/context";
 
 interface MenuItem {
   icon: IconT;
@@ -38,15 +39,16 @@ const menuItems: MenuItem[] = [
 ];
 
 function AccountScreen() {
+  const authContext = useContext(AuthContext);
   const router = useRouter();
 
   return (
     <Screen>
       <View style={styles.container}>
         <ListItem
-          subTitle="rfoc15@gmail.com"
+          title={authContext?.user.name as string}
+          subTitle={authContext?.user.email}
           image={require("../assets/avatar.jpg")}
-          title="Rei Orozco"
         />
       </View>
 
