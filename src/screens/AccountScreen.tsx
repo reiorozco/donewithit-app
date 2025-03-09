@@ -12,6 +12,7 @@ import colors from "../config/colors";
 import routes from "./routes";
 import cache from "../utility/cache";
 import AuthContext from "../auth/context";
+import authStorage from "../auth/storage";
 
 interface MenuItem {
   icon: IconT;
@@ -41,6 +42,13 @@ const menuItems: MenuItem[] = [
 function AccountScreen() {
   const authContext = useContext(AuthContext);
   const router = useRouter();
+
+  const handleLogout = () => {
+    cache.getStoreData("id");
+    authContext?.setUser(null);
+    authStorage.removeToken();
+    router.replace(routes.LOGIN);
+  };
 
   return (
     <Screen>
@@ -76,11 +84,7 @@ function AccountScreen() {
         <ListItem
           title="Log Out"
           IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
-          onPress={() => {
-            cache.getStoreData("id");
-            authContext?.setUser(null);
-            router.replace("/login");
-          }}
+          onPress={handleLogout}
         />
       </View>
     </Screen>

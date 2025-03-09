@@ -7,7 +7,7 @@ import cache from "../utility/cache";
 
 // Define the api
 const apiClient = create({
-  baseURL: "http://192.168.1.4:9000/api",
+  baseURL: "http://192.168.1.7:9000/api",
 });
 
 const get = apiClient.get;

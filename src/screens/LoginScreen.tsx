@@ -15,6 +15,7 @@ import Screen from "../components/Screen";
 
 import FormLoginValues from "../interfaces/formLoginValues";
 import AuthContext, { User } from "../auth/context";
+import authStorage from "../auth/storage";
 import authApi from "../api/auth";
 import cache from "../utility/cache";
 import routes from "./routes";
@@ -29,6 +30,24 @@ function LoginScreen() {
   const router = useRouter();
 
   const [loginFailed, setLoginFailed] = useState(false);
+
+  const handleSubmit = async (values: FormLoginValues) => {
+    const result = await authApi.login(values.email, values.password);
+
+    if (!result.ok) return setLoginFailed(true);
+
+    setLoginFailed(false);
+
+    if (result.data != null) {
+      const user = jwtDecode<User>(result.data);
+      console.log("User: ", user);
+
+      authContext?.setUser(user);
+      await authStorage.storeToken(result.data);
+
+      router.replace(routes.FEED);
+    }
+  };
 
   const storeData = async (value: { id: string }) => {
     try {
@@ -48,25 +67,16 @@ function LoginScreen() {
 
       <AppForm<FormLoginValues>
         initialValues={{ email: "", password: "" }}
-        // validationSchema={validationSchema}
+        validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(async () => {
             // alert(JSON.stringify(values, null, 2));
 
-            const result = await authApi.login(values.email, values.password);
-            if (!result.ok) return setLoginFailed(true);
-            setLoginFailed(false);
-            if (result.data != null) {
-              const user = jwtDecode<User>(result.data);
-              console.log("User: ", user);
-              authContext?.setUser(user);
-            }
+            await handleSubmit(values);
 
             await cache.store("id", values.email);
 
             setSubmitting(false);
-
-            router.replace(routes.FEED);
           }, 400);
         }}
       >

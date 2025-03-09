@@ -1,18 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { useRootNavigationState, useRouter } from "expo-router";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
+import jwtDecode from "jwt-decode";
 
 import AppButton from "../components/AppButton";
 
 import routes from "./routes";
+import authStorage from "../auth/storage";
+import AuthContext from "../auth/context";
 
 function WelcomeScreen() {
   const router = useRouter();
+  const authContext = useContext(AuthContext);
   const { isConnected, isInternetReachable } = useNetInfo();
+  const rootNavigationState = useRootNavigationState();
 
+  // NetInfo
   useEffect(() => {
     NetInfo.fetch().then((netInfoState) => console.log(netInfoState));
+  }, []);
+
+  const restoreToken = async () => {
+    const token = await authStorage.getToken();
+    if (!token) return;
+
+    authContext?.setUser(jwtDecode(token));
+  };
+
+  useEffect(() => {
+    if (!rootNavigationState?.key) return;
+
+    restoreToken();
+
+    if (authContext?.user) router.replace(routes.FEED);
   }, []);
 
   return (
