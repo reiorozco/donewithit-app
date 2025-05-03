@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
-import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
+import { StyleSheet, TouchableHighlight, View } from "react-native";
+import { Image } from "expo-image";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 
 import AppText from "@/components/AppText";
