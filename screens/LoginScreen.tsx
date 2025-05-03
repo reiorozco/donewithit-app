@@ -6,9 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import AppButton from "@/components/AppButton";
-import AppText from "@/components/AppText";
 import AppTextInput from "@/components/AppTextInput";
-import colors from "@/constants/colors";
+import ErrorMessage from "@/components/ErrorMessage";
 
 const logoSource = require("@/assets/images/logo-red.png");
 
@@ -34,10 +33,9 @@ function LoginScreen() {
       email: "",
       password: "",
     },
+    mode: "all",
     resolver: zodResolver(schema),
   });
-
-  console.log("errors: ", errors);
 
   const onSubmit = handleSubmit((data) => console.log(data));
 
@@ -61,9 +59,7 @@ function LoginScreen() {
         )}
         name="email"
       />
-      {errors.email && (
-        <AppText style={styles.textError}>{errors.email.message}</AppText>
-      )}
+      <ErrorMessage error={errors.email?.message} />
 
       <Controller
         control={control}
@@ -82,9 +78,7 @@ function LoginScreen() {
         )}
         name="password"
       />
-      {errors.password && (
-        <AppText style={styles.textError}>{errors.password.message}</AppText>
-      )}
+      <ErrorMessage error={errors.password?.message} />
 
       <View style={styles.loginButtonContainer}>
         <AppButton title="Login" onPress={onSubmit} />
@@ -104,11 +98,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 50,
     width: 80,
-  },
-  textError: {
-    color: colors.danger,
-    fontSize: 15,
-    marginLeft: 10,
   },
 });
 
