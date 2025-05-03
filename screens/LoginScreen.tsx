@@ -1,13 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import AppButton from "@/components/AppButton";
-import AppTextInput from "@/components/AppTextInput";
-import ErrorMessage from "@/components/ErrorMessage";
+import AppFormField from "@/components/AppFormField";
 
 const logoSource = require("@/assets/images/logo-red.png");
 
@@ -24,11 +23,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 function LoginScreen() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       email: "",
       password: "",
@@ -43,42 +38,26 @@ function LoginScreen() {
     <View style={styles.container}>
       <Image source={logoSource} style={styles.logo} />
 
-      <Controller
+      <AppFormField
+        autoCapitalize="none"
+        autoCorrect={false}
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <AppTextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="email"
-            keyboardType="email-address"
-            placeholder="Email"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
+        icon="email"
+        keyboardType="email-address"
         name="email"
+        placeholder="Email"
       />
-      <ErrorMessage error={errors.email?.message} />
 
-      <Controller
+      <AppFormField
+        autoCapitalize="none"
+        autoCorrect={false}
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <AppTextInput
-            placeholder="Password"
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="lock"
-            secureTextEntry
-            textContentType="password"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
+        icon="lock"
         name="password"
+        placeholder="Password"
+        secureTextEntry
+        textContentType="password"
       />
-      <ErrorMessage error={errors.password?.message} />
 
       <View style={styles.loginButtonContainer}>
         <AppButton title="Login" onPress={onSubmit} />

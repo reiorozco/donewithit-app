@@ -5,11 +5,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "@/constants/colors";
 import defaultStyles from "@/constants/styles";
 
-interface Props extends TextInputProps {
-  icon: keyof typeof MaterialCommunityIcons.glyphMap;
+export interface AppTextInputProps extends TextInputProps {
+  icon?: keyof typeof MaterialCommunityIcons.glyphMap;
 }
 
-function AppTextInput({ icon, ...otherProps }: Props) {
+function AppTextInput({ icon, ...otherProps }: AppTextInputProps) {
   return (
     <View style={styles.container}>
       {icon && (
