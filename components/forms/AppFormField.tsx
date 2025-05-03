@@ -2,7 +2,7 @@ import React from "react";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 import AppTextInput, { AppTextInputProps } from "@/components/AppTextInput";
-import ErrorMessage from "@/components/ErrorMessage";
+import ErrorMessage from "./ErrorMessage";
 
 interface Props<T extends FieldValues> extends AppTextInputProps {
   control: Control<T, any, T>;

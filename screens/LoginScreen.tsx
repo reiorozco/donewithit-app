@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import AppButton from "@/components/AppButton";
-import AppFormField from "@/components/AppFormField";
+import { AppFormField } from "@/components/forms";
 
 const logoSource = require("@/assets/images/logo-red.png");
 
@@ -59,7 +59,7 @@ function LoginScreen() {
         textContentType="password"
       />
 
-      <View style={styles.loginButtonContainer}>
+      <View style={styles.submitButton}>
         <AppButton title="Login" onPress={onSubmit} />
       </View>
     </View>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
   },
-  loginButtonContainer: { marginTop: 10 },
+  submitButton: { marginTop: 10 },
   logo: {
     alignSelf: "center",
     height: 80,
