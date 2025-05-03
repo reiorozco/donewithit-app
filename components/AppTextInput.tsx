@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, TextInputProps, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "@/constants/colors";
 import defaultStyles from "@/constants/styles";
 
-interface Props {
+interface Props extends TextInputProps {
   icon: keyof typeof MaterialCommunityIcons.glyphMap;
 }
 
@@ -28,12 +28,13 @@ function AppTextInput({ icon, ...otherProps }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
     backgroundColor: colors.light,
     borderRadius: 25,
     flexDirection: "row",
-    width: "100%",
-    padding: 15,
     marginVertical: 10,
+    padding: 15,
+    width: "100%",
   },
   icon: {
     marginRight: 10,

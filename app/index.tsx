@@ -1,10 +1,20 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import ListingsScreen from "@/screens/ListingsScreen";
+import LoginScreen from "@/screens/LoginScreen";
+import Screen from "@/components/Screen";
+import { StyleSheet } from "react-native";
 
 export default function Index() {
   return (
     <GestureHandlerRootView>
-      <ListingsScreen />
+      <Screen style={styles.container}>
+        <LoginScreen />
+      </Screen>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 0,
+  },
+});
