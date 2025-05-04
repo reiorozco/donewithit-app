@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
 
 import Icon, { IconProps } from "@/components/Icon";
 import { ListItem, ListItemSeparator } from "@/components/lists";
@@ -28,6 +29,8 @@ const menuItems: {
 const avatarSource = require("@/assets/images/avatar.jpg");
 
 function AccountScreen() {
+  const router = useRouter();
+
   return (
     <>
       <View style={styles.container}>
@@ -51,6 +54,7 @@ function AccountScreen() {
                   name={item.icon.name}
                 />
               }
+              onPress={() => router.push("/account/messages")}
               title={item.title}
             />
           )}
