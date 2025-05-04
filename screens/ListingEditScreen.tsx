@@ -4,22 +4,30 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { AppFormField, AppFormPicker } from "@/components/forms";
+import {
+  AppFormField,
+  AppFormImagePicker,
+  AppFormPicker,
+} from "@/components/forms";
 import AppButton from "@/components/AppButton";
 import CategoryPickerItem from "@/components/CategoryPickerItem";
 import { Item } from "@/components/PickerItem";
 
 const schema = z.object({
-  category: z.string().nonempty({ message: "This is required" }),
+  category: z.string().nonempty({ message: "Category is a required field" }),
   description: z.string().max(255).optional(),
+  images: z
+    .array(z.string())
+    .min(1, { message: "Please select at least one image" })
+    .max(5, { message: "You can only upload up to five images" }),
   price: z
     .string()
-    .nonempty({ message: "This is required" })
+    .nonempty({ message: "Price is a required field" })
     .refine((value) => !isNaN(Number(value)), { message: "Invalid price" })
     .refine((value) => value.length <= 6, {
       message: "Price must be less than six characters long",
     }),
-  title: z.string().nonempty({ message: "This is required" }),
+  title: z.string().nonempty({ message: "Title is a required field" }),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -80,7 +88,7 @@ function ListingEditScreen() {
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       category: "",
-      description: "",
+      images: [],
       price: "",
       title: "",
     },
@@ -92,6 +100,8 @@ function ListingEditScreen() {
 
   return (
     <View style={styles.container}>
+      <AppFormImagePicker control={control} name="images" />
+
       <AppFormField
         control={control}
         maxLength={100}

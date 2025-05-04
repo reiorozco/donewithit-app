@@ -29,6 +29,7 @@ function ImageInputList({ images, onAddImage, onRemoveImage }: Props) {
               setImage={() => onRemoveImage(image)}
             />
           ))}
+
           <ImageInput setImage={onAddImage} />
         </View>
       </ScrollView>
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   container: {
     columnGap: 10,
     flexDirection: "row",
-    padding: 10,
+    paddingVertical: 10,
     width: "100%",
   },
 });
