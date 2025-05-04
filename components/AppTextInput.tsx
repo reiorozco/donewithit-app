@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, TextInput, TextInputProps, View } from "react-native";
+import {
+  DimensionValue,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  View,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "@/constants/colors";
@@ -7,11 +13,16 @@ import defaultStyles from "@/constants/styles";
 
 export interface AppTextInputProps extends TextInputProps {
   icon?: keyof typeof MaterialCommunityIcons.glyphMap;
+  width?: DimensionValue;
 }
 
-function AppTextInput({ icon, ...otherProps }: AppTextInputProps) {
+function AppTextInput({
+  icon,
+  width = "100%",
+  ...otherProps
+}: AppTextInputProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width: width }]}>
       {icon && (
         <MaterialCommunityIcons
           color={colors.medium}
@@ -38,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 10,
     padding: 10,
-    width: "100%",
+    // width: "100%",
   },
   icon: {
     marginRight: 10,

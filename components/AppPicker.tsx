@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  DimensionValue,
   FlatList,
   Modal,
   StyleSheet,
@@ -25,6 +26,7 @@ export interface AppPickerProps {
   onSelectItem?: (item: Item) => void;
   placeholder?: string;
   selectedItem?: Item;
+  width?: DimensionValue;
 }
 
 function AppPicker({
@@ -33,13 +35,14 @@ function AppPicker({
   onSelectItem,
   placeholder,
   selectedItem,
+  width = "100%",
 }: AppPickerProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, { width: width }]}>
           {icon && (
             <MaterialCommunityIcons
               color={colors.medium}
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 10,
     padding: 20,
-    width: "100%",
+    // width: "100%",
   },
   icon: {
     marginRight: 10,

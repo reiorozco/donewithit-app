@@ -8,7 +8,8 @@ import { AppFormField, AppFormPicker } from "@/components/forms";
 import AppButton from "@/components/AppButton";
 
 const schema = z.object({
-  title: z.string().nonempty({ message: "This is required" }),
+  category: z.string().nonempty({ message: "This is required" }),
+  description: z.string().max(255).optional(),
   price: z
     .string()
     .nonempty({ message: "This is required" })
@@ -16,8 +17,7 @@ const schema = z.object({
     .refine((value) => value.length <= 6, {
       message: "Price must be less than six characters long",
     }),
-  description: z.string().max(255).optional(),
-  category: z.string().nonempty({ message: "This is required" }),
+  title: z.string().nonempty({ message: "This is required" }),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -31,10 +31,10 @@ const categories = [
 function ListingEditScreen() {
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
-      title: "",
-      price: "",
-      description: "",
       category: "",
+      description: "",
+      price: "",
+      title: "",
     },
     mode: "all",
     resolver: zodResolver(schema),
@@ -53,30 +53,32 @@ function ListingEditScreen() {
 
       <AppFormField
         control={control}
-        name="price"
-        maxLength={8}
-        placeholder="Price"
         keyboardType="numeric"
+        maxLength={8}
+        name="price"
+        placeholder="Price"
+        width={120}
       />
 
       <AppFormPicker
         control={control}
+        items={categories}
         name="category"
         placeholder="Category"
-        items={categories}
+        width={240}
       />
 
       <AppFormField
         control={control}
+        maxLength={255}
         multiline
         name="description"
-        maxLength={255}
-        placeholder="Description"
         numberOfLines={3}
+        placeholder="Description"
       />
 
       <View style={styles.submitButton}>
-        <AppButton title="Post" onPress={onSubmit} />
+        <AppButton onPress={onSubmit} title="Post" />
       </View>
     </View>
   );
