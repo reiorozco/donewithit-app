@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Button,
   FlatList,
   Modal,
   StyleSheet,
@@ -9,20 +8,21 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import AppButton from "@/components/AppButton";
 import AppText from "@/components/AppText";
 import PickerItem from "@/components/PickerItem";
 import Screen from "@/components/Screen";
 import colors from "@/constants/colors";
 
-type Item = {
+export type Item = {
   value: string;
   label: string;
 };
 
-interface Props {
+export interface AppPickerProps {
   items: Item[];
-  onSelectItem: (item: Item) => void;
-  selectedItem: Item;
+  onSelectItem?: (item: Item) => void;
+  selectedItem?: Item;
   icon?: keyof typeof MaterialCommunityIcons.glyphMap;
   placeholder?: string;
 }
@@ -33,7 +33,7 @@ function AppPicker({
   onSelectItem,
   placeholder,
   selectedItem,
-}: Props) {
+}: AppPickerProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -49,9 +49,14 @@ function AppPicker({
             />
           )}
 
-          <AppText style={styles.text}>
-            {selectedItem ? selectedItem.label : placeholder}
-          </AppText>
+          {selectedItem ? (
+            <AppText style={styles.text}>{selectedItem.label}</AppText>
+          ) : (
+            <AppText style={[styles.text, styles.placeholderText]}>
+              {placeholder}
+            </AppText>
+          )}
+
           <MaterialCommunityIcons
             name="chevron-down"
             size={20}
@@ -59,9 +64,11 @@ function AppPicker({
           />
         </View>
       </TouchableWithoutFeedback>
+
       <Modal visible={modalVisible} animationType="slide">
-        <Screen>
-          <Button title="Close" onPress={() => setModalVisible(false)} />
+        <Screen style={styles.modalContainer}>
+          <AppButton title="Close" onPress={() => setModalVisible(false)} />
+
           <FlatList
             data={items}
             keyExtractor={(item) => item.value.toString()}
@@ -70,7 +77,9 @@ function AppPicker({
                 label={item.label}
                 onPress={() => {
                   setModalVisible(false);
-                  onSelectItem(item);
+                  if (onSelectItem) {
+                    onSelectItem(item);
+                  }
                 }}
               />
             )}
@@ -83,15 +92,22 @@ function AppPicker({
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
     backgroundColor: colors.light,
     borderRadius: 25,
     flexDirection: "row",
-    width: "100%",
-    padding: 15,
     marginVertical: 10,
+    padding: 20,
+    width: "100%",
   },
   icon: {
     marginRight: 10,
+  },
+  modalContainer: {
+    padding: 5,
+  },
+  placeholderText: {
+    color: colors.medium,
   },
   text: {
     flex: 1,
