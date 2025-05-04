@@ -6,6 +6,8 @@ import { z } from "zod";
 
 import { AppFormField, AppFormPicker } from "@/components/forms";
 import AppButton from "@/components/AppButton";
+import CategoryPickerItem from "@/components/CategoryPickerItem";
+import { Item } from "@/components/PickerItem";
 
 const schema = z.object({
   category: z.string().nonempty({ message: "This is required" }),
@@ -22,10 +24,56 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const categories = [
-  { label: "Furniture", value: "furniture" },
-  { label: "Clothing", value: "clothing" },
-  { label: "Camera", value: "camera" },
+const categories: Item[] = [
+  {
+    backgroundColor: "red",
+    label: "Furniture",
+    name: "floor-lamp",
+    value: "furniture",
+  },
+  { backgroundColor: "orange", label: "Cars", name: "car", value: "cars" },
+  {
+    backgroundColor: "gold",
+    label: "Cameras",
+    name: "camera",
+    value: "cameras",
+  },
+  {
+    backgroundColor: "palegreen",
+    label: "Games",
+    name: "cards",
+    value: "games",
+  },
+  {
+    backgroundColor: "mediumaquamarine",
+    label: "Clothing",
+    name: "shoe-heel",
+    value: "clothing",
+  },
+  {
+    backgroundColor: "lightblue",
+    label: "Sports",
+    name: "basketball",
+    value: "sports",
+  },
+  {
+    backgroundColor: "dodgerblue",
+    label: "Movies & Music",
+    name: "headphones",
+    value: "movies",
+  },
+  {
+    backgroundColor: "purple",
+    label: "Books",
+    name: "book-open-blank-variant",
+    value: "books",
+  },
+  {
+    backgroundColor: "gray",
+    label: "Other",
+    name: "window-maximize",
+    value: "other",
+  },
 ];
 
 function ListingEditScreen() {
@@ -64,6 +112,8 @@ function ListingEditScreen() {
         control={control}
         items={categories}
         name="category"
+        numColumns={3}
+        PickerItemComponent={CategoryPickerItem}
         placeholder="Category"
         width={240}
       />

@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-interface Props {
+export interface IconProps {
   backgroundColor?: string;
   iconColor?: string;
   name: keyof typeof MaterialCommunityIcons.glyphMap;
@@ -14,7 +14,7 @@ function Icon({
   iconColor = "#fff",
   name,
   size = 40,
-}: Props) {
+}: IconProps) {
   return (
     <View
       style={{

@@ -2,16 +2,22 @@ import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import AppText from "@/components/AppText";
+import { IconProps } from "@/components/Icon";
 
-interface Props {
+export interface Item extends IconProps {
   label: string;
+  value: string | number;
+}
+
+export interface PickerItemProps {
+  item: Item;
   onPress?: () => void;
 }
 
-function PickerItem({ label, onPress }: Props) {
+function PickerItem({ item, onPress }: PickerItemProps) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <AppText style={styles.text}>{label}</AppText>
+      <AppText style={styles.text}>{item.label}</AppText>
     </TouchableOpacity>
   );
 }

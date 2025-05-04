@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import {
   DimensionValue,
   FlatList,
@@ -11,19 +11,16 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppButton from "@/components/AppButton";
 import AppText from "@/components/AppText";
-import PickerItem from "@/components/PickerItem";
+import PickerItem, { Item, PickerItemProps } from "@/components/PickerItem";
 import Screen from "@/components/Screen";
 import colors from "@/constants/colors";
-
-export type Item = {
-  value: string;
-  label: string;
-};
 
 export interface AppPickerProps {
   icon?: keyof typeof MaterialCommunityIcons.glyphMap;
   items: Item[];
+  numColumns?: number;
   onSelectItem?: (item: Item) => void;
+  PickerItemComponent?: ({ item, onPress }: PickerItemProps) => ReactElement;
   placeholder?: string;
   selectedItem?: Item;
   width?: DimensionValue;
@@ -32,7 +29,9 @@ export interface AppPickerProps {
 function AppPicker({
   icon,
   items,
+  numColumns = 1,
   onSelectItem,
+  PickerItemComponent = PickerItem,
   placeholder,
   selectedItem,
   width = "100%",
@@ -68,25 +67,28 @@ function AppPicker({
         </View>
       </TouchableWithoutFeedback>
 
-      <Modal animationType="slide" visible={modalVisible}>
+      <Modal animationType="slide" transparent visible={modalVisible}>
         <Screen style={styles.modalContainer}>
-          <AppButton onPress={() => setModalVisible(false)} title="Close" />
+          <View style={styles.modalContent}>
+            <AppButton onPress={() => setModalVisible(false)} title="Close" />
 
-          <FlatList
-            data={items}
-            keyExtractor={(item) => item.value.toString()}
-            renderItem={({ item }) => (
-              <PickerItem
-                label={item.label}
-                onPress={() => {
-                  setModalVisible(false);
-                  if (onSelectItem) {
-                    onSelectItem(item);
-                  }
-                }}
-              />
-            )}
-          />
+            <FlatList
+              data={items}
+              keyExtractor={(item) => item.value.toString()}
+              numColumns={numColumns}
+              renderItem={({ item }) => (
+                <PickerItemComponent
+                  item={item}
+                  onPress={() => {
+                    setModalVisible(false);
+                    if (onSelectItem) {
+                      onSelectItem(item);
+                    }
+                  }}
+                />
+              )}
+            />
+          </View>
         </Screen>
       </Modal>
     </>
@@ -107,7 +109,27 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   modalContainer: {
-    padding: 5,
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingHorizontal: 5,
+  },
+  modalContent: {
+    backgroundColor: colors.white,
+    borderColor: colors.light,
+    borderStyle: "solid",
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
+    borderWidth: 1,
+    elevation: 5,
+    shadowColor: "black",
+    shadowOffset: {
+      height: -10,
+      width: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    // height: 600,
+    padding: 10,
   },
   placeholderText: {
     color: colors.medium,

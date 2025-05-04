@@ -1,19 +1,22 @@
 import React from "react";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
+import AppPicker, { AppPickerProps } from "@/components/AppPicker";
+import { Item } from "@/components/PickerItem";
 import ErrorMessage from "./ErrorMessage";
-import AppPicker, { AppPickerProps, Item } from "@/components/AppPicker";
 
 interface Props<T extends FieldValues> extends AppPickerProps {
   control: Control<T, any, T>;
   items: Item[];
   name: Path<T>;
+  numColumns?: number;
 }
 
 function AppFormPicker<T extends FieldValues>({
   control,
   items,
   name,
+  numColumns,
   ...otherProps
 }: Props<T>) {
   return (
@@ -24,6 +27,7 @@ function AppFormPicker<T extends FieldValues>({
         <>
           <AppPicker
             items={items}
+            numColumns={numColumns}
             onSelectItem={(item) => onChange(item.value)}
             selectedItem={items.find((i) => i.value === value)}
             {...otherProps}
