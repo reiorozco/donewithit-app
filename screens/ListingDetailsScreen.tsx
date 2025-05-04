@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
 
 import AppText from "@/components/AppText";
-import ListItem from "@/components/ListItem";
+import { ListItem } from "@/components/lists";
 import colors from "@/constants/colors";
 
 const avatarSource = require("@/assets/images/avatar.jpg");
@@ -12,7 +12,7 @@ const imageSource = require("@/assets/images/jacket.jpg");
 function ListingDetailsScreen() {
   return (
     <View>
-      <Image style={styles.image} source={imageSource} />
+      <Image source={imageSource} style={styles.image} />
 
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>Brown jacket for sale</AppText>
@@ -21,8 +21,8 @@ function ListingDetailsScreen() {
         <View style={styles.userContainer}>
           <ListItem
             image={avatarSource}
-            title="Rei Orozco"
             subTitle="5 Listings"
+            title="Rei Orozco"
           />
         </View>
       </View>

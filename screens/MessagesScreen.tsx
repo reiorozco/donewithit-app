@@ -1,8 +1,11 @@
-import ListItem from "@/components/ListItem";
-import ListItemDeleteAction from "@/components/ListItemDeleteAction";
-import ListItemSeparator from "@/components/ListItemSeparator";
 import React, { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
+
+import {
+  ListItem,
+  ListItemDeleteAction,
+  ListItemSeparator,
+} from "@/components/lists";
 
 type Message = {
   id: number;

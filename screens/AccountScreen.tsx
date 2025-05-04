@@ -1,25 +1,27 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
-import Icon from "@/components/Icon";
-import ListItem from "@/components/ListItem";
-import ListItemSeparatorComponent from "@/components/ListItemSeparator";
+import Icon, { IconProps } from "@/components/Icon";
+import { ListItem, ListItemSeparator } from "@/components/lists";
 import colors from "@/constants/colors";
 
-const menuItems = [
+const menuItems: {
+  icon: IconProps;
+  title: string;
+}[] = [
   {
-    title: "My Listings",
     icon: {
-      name: "format-list-bulleted",
       backgroundColor: colors.primary,
+      name: "format-list-bulleted",
     },
+    title: "My Listings",
   },
   {
-    title: "My Messages",
     icon: {
-      name: "email",
       backgroundColor: colors.secondary,
+      name: "email",
     },
+    title: "My Messages",
   },
 ];
 
@@ -30,34 +32,34 @@ function AccountScreen() {
     <>
       <View style={styles.container}>
         <ListItem
-          title="Rei Orozco"
-          subTitle="rfoc15@gmail.com"
           image={avatarSource}
+          subTitle="rfoc15@gmail.com"
+          title="Rei Orozco"
         />
       </View>
 
       <View style={styles.container}>
         <FlatList
           data={menuItems}
+          ItemSeparatorComponent={ListItemSeparator}
           keyExtractor={(menuItem) => menuItem.title}
-          ItemSeparatorComponent={ListItemSeparatorComponent}
           renderItem={({ item }) => (
             <ListItem
-              title={item.title}
               IconComponent={
                 <Icon
-                  name={item.icon.name}
                   backgroundColor={item.icon.backgroundColor}
+                  name={item.icon.name}
                 />
               }
+              title={item.title}
             />
           )}
         />
       </View>
 
       <ListItem
+        IconComponent={<Icon backgroundColor="#ffe66d" name="logout" />}
         title="Log Out"
-        IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
       />
     </>
   );
