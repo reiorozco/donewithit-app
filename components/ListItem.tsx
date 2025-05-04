@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { StyleSheet, TouchableHighlight, View } from "react-native";
 import { Image } from "expo-image";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import AppText from "@/components/AppText";
 import colors from "@/constants/colors";
@@ -41,6 +42,12 @@ function ListItem({
 
             {subTitle && <AppText style={styles.subTitle}>{subTitle}</AppText>}
           </View>
+
+          <MaterialCommunityIcons
+            color={colors.medium}
+            name="chevron-right"
+            size={25}
+          />
         </View>
       </TouchableHighlight>
     </Swipeable>
