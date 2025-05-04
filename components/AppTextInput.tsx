@@ -14,9 +14,9 @@ function AppTextInput({ icon, ...otherProps }: AppTextInputProps) {
     <View style={styles.container}>
       {icon && (
         <MaterialCommunityIcons
+          color={colors.medium}
           name={icon}
           size={20}
-          color={colors.medium}
           style={styles.icon}
         />
       )}

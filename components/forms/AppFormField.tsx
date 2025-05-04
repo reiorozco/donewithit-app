@@ -19,7 +19,7 @@ function AppFormField<T extends FieldValues>({
       control={control}
       name={name}
       render={({
-        field: { onChange, onBlur, value },
+        field: { onBlur, onChange, value },
         fieldState: { error },
       }) => (
         <>

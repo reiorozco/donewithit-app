@@ -6,29 +6,26 @@ import AppPicker, { AppPickerProps, Item } from "@/components/AppPicker";
 
 interface Props<T extends FieldValues> extends AppPickerProps {
   control: Control<T, any, T>;
-  name: Path<T>;
   items: Item[];
+  name: Path<T>;
 }
 
 function AppFormPicker<T extends FieldValues>({
   control,
-  name,
   items,
+  name,
   ...otherProps
 }: Props<T>) {
   return (
     <Controller
       control={control}
       name={name}
-      render={({
-        field: { onChange, onBlur, value },
-        fieldState: { error },
-      }) => (
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <>
           <AppPicker
+            items={items}
             onSelectItem={(item) => onChange(item.value)}
             selectedItem={items.find((i) => i.value === value)}
-            items={items}
             {...otherProps}
           />
 

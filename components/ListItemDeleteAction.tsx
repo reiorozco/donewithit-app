@@ -13,9 +13,9 @@ function ListItemDeleteAction({ onPress }: Props) {
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <MaterialCommunityIcons
+          color={colors.white}
           name="trash-can"
           size={35}
-          color={colors.white}
         />
       </View>
     </TouchableWithoutFeedback>
@@ -24,10 +24,10 @@ function ListItemDeleteAction({ onPress }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.danger,
-    width: 70,
-    justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.danger,
+    justifyContent: "center",
+    width: 70,
   },
 });
 

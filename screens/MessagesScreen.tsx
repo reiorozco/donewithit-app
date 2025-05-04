@@ -1,9 +1,8 @@
+import ListItem from "@/components/ListItem";
+import ListItemDeleteAction from "@/components/ListItemDeleteAction";
+import ListItemSeparator from "@/components/ListItemSeparator";
 import React, { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
-
-import ListItem from "@/components/ListItem";
-import ListItemSeparator from "@/components/ListItemSeparator";
-import ListItemDeleteAction from "@/components/ListItemDeleteAction";
 
 type Message = {
   id: number;
@@ -14,16 +13,16 @@ type Message = {
 
 const initialMessages: Message[] = [
   {
-    id: 1,
-    title: "T1",
     description: "D1",
+    id: 1,
     image: require("../assets/images/avatar.jpg"),
+    title: "T1",
   },
   {
-    id: 2,
-    title: "T2",
     description: "D2",
+    id: 2,
     image: require("../assets/images/avatar.jpg"),
+    title: "T2",
   },
 ];
 
@@ -39,30 +38,30 @@ function MessagesScreen() {
   return (
     <FlatList
       data={messages}
+      ItemSeparatorComponent={ListItemSeparator}
       keyExtractor={(message) => message.id.toString()}
+      onRefresh={() => {
+        setMessages([
+          {
+            description: "D2",
+            id: 2,
+            image: require("../assets/images/avatar.jpg"),
+            title: "T2",
+          },
+        ]);
+      }}
+      refreshing={refreshing}
       renderItem={({ item }) => (
         <ListItem
-          title={item.title}
-          subTitle={item.description}
           image={item.image}
           onPress={() => console.log("Message selected", item)}
           renderRightActions={() => (
             <ListItemDeleteAction onPress={() => handleDelete(item)} />
           )}
+          subTitle={item.description}
+          title={item.title}
         />
       )}
-      ItemSeparatorComponent={ListItemSeparator}
-      refreshing={refreshing}
-      onRefresh={() => {
-        setMessages([
-          {
-            id: 2,
-            title: "T2",
-            description: "D2",
-            image: require("../assets/images/avatar.jpg"),
-          },
-        ]);
-      }}
     />
   );
 }

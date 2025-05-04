@@ -8,13 +8,13 @@ import AppText from "@/components/AppText";
 import colors from "@/constants/colors";
 
 interface Props {
-  title: string;
-  subTitle?: string;
-  image?: any;
   IconComponent?: ReactNode;
+  image?: any;
   onPress?: () => void;
   renderLeftActions?: () => ReactNode;
   renderRightActions?: () => ReactNode;
+  subTitle?: string;
+  title: string;
 }
 
 function ListItem({
@@ -28,14 +28,14 @@ function ListItem({
 }: Props) {
   return (
     <Swipeable
-      renderRightActions={renderRightActions}
       renderLeftActions={renderLeftActions}
+      renderRightActions={renderRightActions}
     >
-      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+      <TouchableHighlight onPress={onPress} underlayColor={colors.light}>
         <View style={styles.container}>
           {IconComponent}
 
-          {image && <Image style={styles.image} source={image} />}
+          {image && <Image source={image} style={styles.image} />}
 
           <View style={styles.detailsContainer}>
             <AppText style={styles.title}>{title}</AppText>

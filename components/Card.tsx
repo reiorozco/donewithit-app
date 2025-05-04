@@ -11,10 +11,10 @@ interface Props {
   title: string;
 }
 
-function Card({ title, subTitle, image }: Props) {
+function Card({ image, subTitle, title }: Props) {
   return (
     <View style={styles.card}>
-      <Image style={styles.image} source={image} />
+      <Image source={image} style={styles.image} />
 
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{title}</AppText>

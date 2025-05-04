@@ -4,16 +4,16 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "@/constants/colors";
 
 interface Props {
-  title: string;
   color?: "primary" | "secondary";
   onPress?: () => void;
+  title: string;
 }
 
-function AppButton({ title, onPress, color = "primary" }: Props) {
+function AppButton({ color = "primary", onPress, title }: Props) {
   return (
     <TouchableOpacity
-      style={[styles.button, { backgroundColor: colors[color] }]}
       onPress={onPress}
+      style={[styles.button, { backgroundColor: colors[color] }]}
     >
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>

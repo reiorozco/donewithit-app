@@ -20,11 +20,11 @@ export type Item = {
 };
 
 export interface AppPickerProps {
+  icon?: keyof typeof MaterialCommunityIcons.glyphMap;
   items: Item[];
   onSelectItem?: (item: Item) => void;
-  selectedItem?: Item;
-  icon?: keyof typeof MaterialCommunityIcons.glyphMap;
   placeholder?: string;
+  selectedItem?: Item;
 }
 
 function AppPicker({
@@ -42,9 +42,9 @@ function AppPicker({
         <View style={styles.container}>
           {icon && (
             <MaterialCommunityIcons
+              color={colors.medium}
               name={icon}
               size={20}
-              color={colors.medium}
               style={styles.icon}
             />
           )}
@@ -58,16 +58,16 @@ function AppPicker({
           )}
 
           <MaterialCommunityIcons
+            color={colors.medium}
             name="chevron-down"
             size={20}
-            color={colors.medium}
           />
         </View>
       </TouchableWithoutFeedback>
 
-      <Modal visible={modalVisible} animationType="slide">
+      <Modal animationType="slide" visible={modalVisible}>
         <Screen style={styles.modalContainer}>
-          <AppButton title="Close" onPress={() => setModalVisible(false)} />
+          <AppButton onPress={() => setModalVisible(false)} title="Close" />
 
           <FlatList
             data={items}
