@@ -8,15 +8,15 @@ import colors from "@/constants/colors";
 const listings = [
   {
     id: 1,
-    title: "Red jacket for sale",
-    price: 100,
     image: require("../assets/images/jacket.jpg"),
+    price: 100,
+    title: "Red jacket for sale",
   },
   {
     id: 2,
-    title: "Couch in great condition",
-    price: 1000,
     image: require("../assets/images/couch.jpg"),
+    price: 1000,
+    title: "Couch in great condition",
   },
 ];
 
@@ -28,9 +28,9 @@ function ListingsScreen() {
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item }) => (
           <Card
-            title={item.title}
-            subTitle={"$" + item.price}
             image={item.image}
+            subTitle={"$" + item.price}
+            title={item.title}
           />
         )}
       />
@@ -40,9 +40,9 @@ function ListingsScreen() {
 
 const styles = StyleSheet.create({
   screen: {
+    backgroundColor: colors.light,
     padding: 10,
     paddingTop: 10,
-    backgroundColor: colors.light,
   },
 });
 

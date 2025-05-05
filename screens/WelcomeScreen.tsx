@@ -1,6 +1,7 @@
 import React from "react";
-import { Image, ImageBackground } from "expo-image";
 import { StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground } from "expo-image";
+import { useRouter } from "expo-router";
 
 import AppButton from "@/components/AppButton";
 
@@ -8,6 +9,8 @@ const backgroundSource = require("@/assets/images/background.jpg");
 const logoSource = require("@/assets/images/logo.png");
 
 function WelcomeScreen() {
+  const router = useRouter();
+
   return (
     <ImageBackground
       blurRadius={5}
@@ -21,9 +24,13 @@ function WelcomeScreen() {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <AppButton title="Login" />
+        <AppButton onPress={() => router.push("/")} title="Login" />
 
-        <AppButton title="Register" color="secondary" />
+        <AppButton
+          color="secondary"
+          onPress={() => router.push("/register")}
+          title="Register"
+        />
       </View>
     </ImageBackground>
   );

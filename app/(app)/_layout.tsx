@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect, Stack } from "expo-router";
 import { Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
 
 import { useSession } from "@/context/AuthContext";
 
@@ -18,7 +17,7 @@ export default function RootLayout() {
   if (!session) {
     // On web, static rendering will stop here as the user is not authenticated
     // in the headless Node process that the pages are rendered in.
-    return <Redirect href="/sign-in" />;
+    return <Redirect href="/welcome" />;
   }
 
   return (
@@ -26,8 +25,6 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-
-      <StatusBar style="dark" />
     </>
   );
 }

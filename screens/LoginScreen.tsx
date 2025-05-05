@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+import { useSession } from "@/context/AuthContext";
 import AppButton from "@/components/AppButton";
 import { AppFormField } from "@/components/forms";
 
@@ -23,6 +25,9 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 function LoginScreen() {
+  const router = useRouter();
+  const { signIn } = useSession();
+
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       email: "",
@@ -32,7 +37,14 @@ function LoginScreen() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    console.log("Login form submitted: ", data);
+
+    signIn();
+    // Navigate after signing in. You may want to tweak this to ensure sign-in is
+    // successful before navigating.
+    router.replace("/(app)/(tabs)");
+  });
 
   return (
     <View style={styles.container}>
@@ -60,7 +72,7 @@ function LoginScreen() {
       />
 
       <View style={styles.submitButton}>
-        <AppButton title="Login" onPress={onSubmit} />
+        <AppButton onPress={onSubmit} title="Login" />
       </View>
     </View>
   );
@@ -70,7 +82,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
   },
-  submitButton: { marginTop: 10 },
   logo: {
     alignSelf: "center",
     height: 80,
@@ -78,6 +89,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: 80,
   },
+  submitButton: { marginTop: 10 },
 });
 
 export default LoginScreen;
