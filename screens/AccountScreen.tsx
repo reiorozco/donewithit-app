@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { useRouter } from "expo-router";
+import { Href, useRouter } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
 import Icon, { IconProps } from "@/components/Icon";
@@ -9,6 +9,7 @@ import colors from "@/constants/colors";
 
 const menuItems: {
   icon: IconProps;
+  route?: Href;
   title: string;
 }[] = [
   {
@@ -23,6 +24,7 @@ const menuItems: {
       backgroundColor: colors.secondary,
       name: "email",
     },
+    route: "/account/messages",
     title: "My Messages",
   },
 ];
@@ -56,7 +58,9 @@ function AccountScreen() {
                   name={item.icon.name}
                 />
               }
-              onPress={() => router.push("/account/messages")}
+              onPress={() => {
+                if (item.route) router.push(item.route);
+              }}
               title={item.title}
             />
           )}

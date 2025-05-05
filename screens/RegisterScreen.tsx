@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { useSession } from "@/context/AuthContext";
 import AppButton from "@/components/AppButton";
 import { AppFormField } from "@/components/forms";
 
@@ -16,18 +15,22 @@ const schema = z.object({
   email: z.string().nonempty({ message: "Email is a required field" }).email({
     message: "Invalid email address",
   }),
-  password: z.string().nonempty({ message: "Password is a required field" }),
+  name: z.string().max(100).nonempty({ message: "Name is a required field" }),
+  password: z
+    .string()
+    .nonempty({ message: "Password is a required field" })
+    .min(5, { message: "Must be five or more characters long" }),
 });
 
 type FormData = z.infer<typeof schema>;
 
-function LoginScreen() {
+function RegisterScreen() {
   const router = useRouter();
-  const { signIn } = useSession();
 
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues: {
       email: "",
+      name: "",
       password: "",
     },
     mode: "all",
@@ -35,12 +38,10 @@ function LoginScreen() {
   });
 
   const onSubmit = handleSubmit((data) => {
-    console.log("Login form submitted: ", data);
+    console.log("Register form submitted: ", data);
 
-    signIn();
-    // Navigate after signing in. You may want to tweak this to ensure sign-in is
-    // successful before navigating.
-    router.replace("/(app)/(tabs)");
+    // TODO: register logic
+    router.replace("/login");
   });
 
   return (
@@ -58,6 +59,14 @@ function LoginScreen() {
       />
 
       <AppFormField
+        autoCorrect={false}
+        control={control}
+        icon="account"
+        name="name"
+        placeholder="Name"
+      />
+
+      <AppFormField
         autoCapitalize="none"
         autoCorrect={false}
         control={control}
@@ -69,7 +78,7 @@ function LoginScreen() {
       />
 
       <View style={styles.submitButton}>
-        <AppButton onPress={onSubmit} title="Login" />
+        <AppButton color="secondary" onPress={onSubmit} title="Register" />
       </View>
     </View>
   );
@@ -89,4 +98,4 @@ const styles = StyleSheet.create({
   submitButton: { marginTop: 10 },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

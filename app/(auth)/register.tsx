@@ -1,12 +1,12 @@
 import React from "react";
-import { Text } from "react-native";
 
 import Screen from "@/components/Screen";
+import RegisterScreen from "@/screens/RegisterScreen";
 
 function Register() {
   return (
     <Screen>
-      <Text>Register Page</Text>
+      <RegisterScreen />
     </Screen>
   );
 }

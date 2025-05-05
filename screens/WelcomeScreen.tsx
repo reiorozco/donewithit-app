@@ -24,11 +24,11 @@ function WelcomeScreen() {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <AppButton onPress={() => router.push("/")} title="Login" />
+        <AppButton onPress={() => router.push("/(auth)/login")} title="Login" />
 
         <AppButton
           color="secondary"
-          onPress={() => router.push("/register")}
+          onPress={() => router.push("/(auth)/register")}
           title="Register"
         />
       </View>
