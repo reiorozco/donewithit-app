@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 
+import { useSession } from "@/context/AuthContext";
 import Icon, { IconProps } from "@/components/Icon";
 import { ListItem, ListItemSeparator } from "@/components/lists";
 import colors from "@/constants/colors";
@@ -30,6 +31,7 @@ const avatarSource = require("@/assets/images/avatar.jpg");
 
 function AccountScreen() {
   const router = useRouter();
+  const { signOut } = useSession();
 
   return (
     <>
@@ -63,6 +65,7 @@ function AccountScreen() {
 
       <ListItem
         IconComponent={<Icon backgroundColor="#ffe66d" name="logout" />}
+        onPress={() => signOut()}
         title="Log Out"
       />
     </>

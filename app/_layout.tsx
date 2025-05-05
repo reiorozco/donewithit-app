@@ -1,16 +1,10 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { Slot } from "expo-router";
+import { SessionProvider } from "@/context/AuthContext";
 
-export default function RootLayout() {
+export default function Root() {
   return (
-    <>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-
-        <Stack.Screen name="+not-found" />
-      </Stack>
-
-      <StatusBar style="dark" />
-    </>
+    <SessionProvider>
+      <Slot />
+    </SessionProvider>
   );
 }
