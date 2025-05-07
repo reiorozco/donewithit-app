@@ -1,7 +1,7 @@
 import React from "react";
 
-import LoginScreen from "@/screens/LoginScreen";
 import Screen from "@/components/Screen";
+import LoginScreen from "@/screens/LoginScreen";
 
 function Login() {
   return (

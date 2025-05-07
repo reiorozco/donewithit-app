@@ -6,10 +6,14 @@ export const unstable_settings = {
 
 export default function AccountLayout() {
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerTitleAlign: "center",
+      }}
+    >
       <Stack.Screen name="index" options={{ headerShown: false }} />
 
-      <Stack.Screen name="messages" options={{ headerShown: false }} />
+      <Stack.Screen name="messages" options={{ title: "Messages" }} />
     </Stack>
   );
 }

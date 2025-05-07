@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import { Redirect, Stack } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
+import colors from "@/constants/colors";
 
 export default function AuthLayout() {
   const { isLoading, session } = useSession();
@@ -21,12 +22,28 @@ export default function AuthLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="welcome" />
+    <Stack
+      screenOptions={{
+        headerTitleAlign: "center",
+      }}
+    >
+      <Stack.Screen name="welcome" options={{ headerShown: false }} />
 
-      <Stack.Screen name="login" />
+      <Stack.Screen
+        name="login"
+        options={{
+          headerTitleStyle: { color: colors.primary, fontWeight: "bold" },
+          title: "Login",
+        }}
+      />
 
-      <Stack.Screen name="register" />
+      <Stack.Screen
+        name="register"
+        options={{
+          headerTitleStyle: { color: colors.secondary, fontWeight: "bold" },
+          title: "Register",
+        }}
+      />
     </Stack>
   );
 }

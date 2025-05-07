@@ -2,9 +2,16 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import colors from "@/constants/colors";
+
 function TabLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: colors.primary,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
