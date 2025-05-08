@@ -13,12 +13,22 @@ function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="feed"
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons color={color} name="home" size={size} />
           ),
           title: "Feed",
+        }}
+      />
+
+      <Tabs.Screen
+        name="post"
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons color={color} name="plus" size={size} />
+          ),
+          title: "Post",
         }}
       />
 
