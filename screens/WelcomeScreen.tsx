@@ -4,6 +4,7 @@ import { Image, ImageBackground } from "expo-image";
 import { useRouter } from "expo-router";
 
 import AppButton from "@/components/AppButton";
+import routes from "@/constants/routes";
 
 const backgroundSource = require("@/assets/images/background.jpg");
 const logoSource = require("@/assets/images/logo.png");
@@ -24,11 +25,11 @@ function WelcomeScreen() {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <AppButton onPress={() => router.push("/(auth)/login")} title="Login" />
+        <AppButton onPress={() => router.push(routes.LOGIN)} title="Login" />
 
         <AppButton
           color="secondary"
-          onPress={() => router.push("/(auth)/register")}
+          onPress={() => router.push(routes.REGISTER)}
           title="Register"
         />
       </View>

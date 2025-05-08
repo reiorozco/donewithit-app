@@ -8,6 +8,7 @@ import { z } from "zod";
 
 import AppButton from "@/components/AppButton";
 import { AppFormField } from "@/components/forms";
+import routes from "@/constants/routes";
 
 const logoSource = require("@/assets/images/logo-red.png");
 
@@ -41,7 +42,7 @@ function RegisterScreen() {
     console.log("Register form submitted: ", data);
 
     // TODO: register logic
-    router.replace("/login");
+    router.replace(routes.LOGIN);
   });
 
   return (

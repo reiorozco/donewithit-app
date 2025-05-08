@@ -9,6 +9,7 @@ import { z } from "zod";
 import { useSession } from "@/context/AuthContext";
 import AppButton from "@/components/AppButton";
 import { AppFormField } from "@/components/forms";
+import routes from "@/constants/routes";
 
 const logoSource = require("@/assets/images/logo-red.png");
 
@@ -40,7 +41,7 @@ function LoginScreen() {
     signIn();
     // Navigate after signing in. You may want to tweak this to ensure sign-in is
     // successful before navigating.
-    router.replace("/(app)/(tabs)");
+    router.replace(routes.HOME);
   });
 
   return (
