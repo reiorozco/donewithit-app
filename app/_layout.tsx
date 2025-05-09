@@ -3,16 +3,19 @@ import { StatusBar } from "expo-status-bar";
 import { Slot } from "expo-router";
 
 import { SessionProvider } from "@/context/AuthContext";
+import QueryClientProvider from "@/context/QueryClientProvider";
 import Screen from "@/components/Screen";
 
 export default function Root() {
   return (
-    <SessionProvider>
-      <Screen>
-        <Slot />
-      </Screen>
+    <QueryClientProvider>
+      <SessionProvider>
+        <Screen>
+          <Slot />
+        </Screen>
 
-      <StatusBar style="dark" />
-    </SessionProvider>
+        <StatusBar style="dark" />
+      </SessionProvider>
+    </QueryClientProvider>
   );
 }

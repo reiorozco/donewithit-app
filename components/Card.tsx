@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import { Image } from "expo-image";
+import { Image, ImageSource } from "expo-image";
 
 import AppText from "@/components/AppText";
 import colors from "@/constants/colors";
 
 interface Props {
-  image: string;
+  image: string | ImageSource;
   onPress?: () => void;
   subTitle: string;
   title: string;
