@@ -49,7 +49,7 @@ function ImageInput({ image, setImage }: Props) {
         quality: 0.5,
       });
 
-      console.log(result);
+      console.log("pickImage: ", result);
 
       if (!result.canceled) {
         setImage(result.assets[0].uri);

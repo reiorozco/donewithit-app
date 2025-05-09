@@ -1,15 +1,15 @@
 import React from "react";
 import { Redirect, Slot } from "expo-router";
-import { Text } from "react-native";
 
 import { useSession } from "@/context/AuthContext";
+import AppActivityIndicator from "@/components/AppActivityIndicator";
 
 export default function RootLayout() {
   const { isLoading, session } = useSession();
 
   // You can keep the splash screen open or render a loading screen like we do here.
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <AppActivityIndicator />;
   }
 
   // Only require authentication within the (app) group's layout as users

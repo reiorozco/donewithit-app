@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
+
+import listingsApi from "@/api/listings";
 
 import {
   AppFormField,
   AppFormImagePicker,
   AppFormPicker,
 } from "@/components/forms";
+import AppText from "@/components/AppText";
 import AppButton from "@/components/AppButton";
 import CategoryPickerItem from "@/components/CategoryPickerItem";
+import UploadScreen from "@/screens/UploadScreen";
 import { Item } from "@/components/PickerItem";
 
 const schema = z.object({
@@ -30,7 +35,7 @@ const schema = z.object({
   title: z.string().nonempty({ message: "Title is a required field" }),
 });
 
-type FormData = z.infer<typeof schema>;
+export type ListingData = z.infer<typeof schema>;
 
 const categories: Item[] = [
   {
@@ -84,10 +89,16 @@ const categories: Item[] = [
   },
 ];
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 function ListingEditScreen() {
-  const { control, handleSubmit } = useForm<FormData>({
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const { control, handleSubmit, reset } = useForm<ListingData>({
     defaultValues: {
       category: "",
+      description: "",
       images: [],
       price: "",
       title: "",
@@ -95,11 +106,47 @@ function ListingEditScreen() {
     mode: "all",
     resolver: zodResolver(schema),
   });
+  const { isError, mutate: addListing } = useMutation({
+    mutationFn: async (listing: ListingData) => {
+      // Simulate progressive loading
+      for (let p = 0; p <= 100; p += 10) {
+        await delay(100); // Simulate progress
+        console.log("Simulated progress: ", p / 100, "%");
+        setProgress(p / 100); // Updating progress bar
+      }
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+      // Real logic of the post
+      return await listingsApi.addListing(listing, (progress) => {
+        console.log("Real progress: ", progress);
+        // setProgress(progress);
+      });
+    },
+    mutationKey: ["addListing"],
+    onError: (error) => {
+      setUploadVisible(false);
+    },
+    onSuccess: () => {
+      setUploadVisible(false);
+      reset();
+    },
+  });
+
+  const onSubmit = handleSubmit((data) => {
+    setUploadVisible(true); // Displays the progress screen
+    setProgress(0);
+
+    console.log("Form data: ", data);
+    addListing(data);
+  });
 
   return (
     <View style={styles.container}>
+      <UploadScreen
+        onDone={() => setUploadVisible(false)}
+        progress={progress}
+        visible={uploadVisible}
+      />
+
       <AppFormImagePicker control={control} name="images" />
 
       <AppFormField
@@ -140,6 +187,8 @@ function ListingEditScreen() {
       <View style={styles.submitButton}>
         <AppButton onPress={onSubmit} title="Post" />
       </View>
+
+      {isError && <AppText>Could not save the listing.</AppText>}
     </View>
   );
 }

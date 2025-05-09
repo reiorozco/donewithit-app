@@ -1,16 +1,17 @@
 import React from "react";
-import { Text } from "react-native";
 import { Redirect, Stack } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
+import AppActivityIndicator from "@/components/AppActivityIndicator";
 import colors from "@/constants/colors";
+import routes from "@/constants/routes";
 
 export default function AuthLayout() {
   const { isLoading, session } = useSession();
 
   // You can keep the splash screen open or render a loading screen like we do here.
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <AppActivityIndicator />;
   }
 
   // Only require authentication within the (app) group's layout as users
@@ -18,7 +19,7 @@ export default function AuthLayout() {
   if (session) {
     // On web, static rendering will stop here as the user is not authenticated
     // in the headless Node process that the pages are rendered in.
-    return <Redirect href="/(app)/(tabs)" />;
+    return <Redirect href={routes.HOME} />;
   }
 
   return (
