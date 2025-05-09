@@ -3,6 +3,7 @@ import { Redirect, Slot } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
 import AppActivityIndicator from "@/components/AppActivityIndicator";
+import routes from "@/constants/routes";
 
 export default function RootLayout() {
   const { isLoading, session } = useSession();
@@ -17,7 +18,7 @@ export default function RootLayout() {
   if (!session) {
     // On web, static rendering will stop here as the user is not authenticated
     // in the headless Node process that the pages are rendered in.
-    return <Redirect href="/welcome" />;
+    return <Redirect href={routes.WELCOME} />;
   }
 
   return <Slot />;

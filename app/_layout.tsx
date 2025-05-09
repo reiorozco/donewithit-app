@@ -14,7 +14,7 @@ export default function Root() {
           <Slot />
         </Screen>
 
-        <StatusBar style="dark" />
+        <StatusBar style="auto" />
       </SessionProvider>
     </QueryClientProvider>
   );

@@ -5,6 +5,7 @@ interface Routes {
   LOGIN: Href;
   POST: Href;
   REGISTER: Href;
+  WELCOME: Href;
 }
 
 const routes: Routes = {
@@ -12,6 +13,7 @@ const routes: Routes = {
   LOGIN: "/(auth)/login",
   POST: "/(app)/(tabs)/post",
   REGISTER: "/(auth)/register",
+  WELCOME: "/(auth)/welcome",
 };
 
 export default routes;

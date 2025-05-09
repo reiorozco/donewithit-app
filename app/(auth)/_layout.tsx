@@ -28,7 +28,10 @@ export default function AuthLayout() {
         headerTitleAlign: "center",
       }}
     >
-      <Stack.Screen name="welcome" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="welcome"
+        options={{ headerShown: false, title: "Welcome" }}
+      />
 
       <Stack.Screen
         name="login"

@@ -106,29 +106,28 @@ function ListingEditScreen() {
     mode: "all",
     resolver: zodResolver(schema),
   });
+
   const { isError, mutate: addListing } = useMutation({
     mutationFn: async (listing: ListingData) => {
-      const result = await listingsApi.addListing(listing, (progress) => {
+      // Real logic of the post
+      return await listingsApi.addListing(listing, (progress) => {
         console.log("Real progress: ", progress);
         // setProgress(progress);
       });
-
+    },
+    mutationKey: ["addListing"],
+    onError: (error) => {
+      setUploadVisible(false);
+    },
+    onMutate: async () => {
       // Simulate progressive loading
       for (let p = 0; p <= 100; p += 10) {
         await delay(100); // Simulate progress
         console.log("Simulated progress: ", p / 100, "%");
         setProgress(p / 100); // Updating progress bar
       }
-
-      // Real logic of the post
-      return result;
-    },
-    mutationKey: ["addListing"],
-    onError: (error) => {
-      setUploadVisible(false);
     },
     onSuccess: () => {
-      setUploadVisible(false);
       reset();
     },
   });

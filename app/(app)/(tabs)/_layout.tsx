@@ -14,6 +14,9 @@ function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
+        tabBarStyle: {
+          height: 60,
+        },
       }}
     >
       <Tabs.Screen

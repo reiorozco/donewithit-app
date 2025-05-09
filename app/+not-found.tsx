@@ -1,7 +1,9 @@
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Link, Stack } from "expo-router";
 
 import colors from "@/constants/colors";
+import routes from "@/constants/routes";
 
 export default function NotFoundScreen() {
   return (
@@ -9,7 +11,7 @@ export default function NotFoundScreen() {
       <Stack.Screen options={{ title: "Oops! Not Found" }} />
 
       <View style={styles.container}>
-        <Link href="/(app)/(tabs)/feed" style={styles.button}>
+        <Link href={routes.HOME} style={styles.button}>
           Go back to Home screen!
         </Link>
       </View>
