@@ -33,14 +33,14 @@ const avatarSource = require("@/assets/images/avatar.jpg");
 
 function AccountScreen() {
   const router = useRouter();
-  const { signOut } = useSession();
+  const { session, signOut } = useSession();
 
   return (
     <>
       <View style={styles.container}>
         <ListItem
           image={avatarSource}
-          subTitle="rfoc15@gmail.com"
+          subTitle={session?.email}
           title="Rei Orozco"
         />
       </View>

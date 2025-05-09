@@ -2,10 +2,15 @@ import { createContext, type PropsWithChildren, use } from "react";
 
 import { useStorageState } from "./useStorageState";
 
+type Session = {
+  token: string;
+  email: string;
+} | null;
+
 const AuthContext = createContext<{
-  signIn: () => void;
+  signIn: (email: string) => void;
   signOut: () => void;
-  session?: string | null;
+  session?: Session;
   isLoading: boolean;
 }>({
   isLoading: false,
@@ -15,16 +20,16 @@ const AuthContext = createContext<{
 });
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState("session");
+  const [[isLoading, session], setSession] =
+    useStorageState<Session>("session");
 
   return (
     <AuthContext
       value={{
         isLoading,
         session,
-        signIn: () => {
-          // Perform sign-in logic here
-          setSession("xxx");
+        signIn: async (email: string) => {
+          setSession({ email, token: "mock-token-for-" + email });
         },
         signOut: () => {
           console.log("sign out");

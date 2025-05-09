@@ -38,7 +38,7 @@ function LoginScreen() {
   const onSubmit = handleSubmit((data) => {
     console.log("Login form submitted: ", data);
 
-    signIn();
+    signIn(data.email);
     // Navigate after signing in. You may want to tweak this to ensure sign-in is
     // successful before navigating.
     router.replace(routes.HOME);

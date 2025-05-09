@@ -4,32 +4,34 @@ import { Platform } from "react-native";
 
 type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
 
-export function useStorageState(key: string): UseStateHook<string> {
+export function useStorageState<T>(key: string): UseStateHook<T> {
   // Public
-  const [state, setState] = useAsyncState<string>();
+  const [state, setState] = useAsyncState<T>();
 
   // Get
   useEffect(() => {
     if (Platform.OS === "web") {
       try {
         if (typeof localStorage !== "undefined") {
-          setState(localStorage.getItem(key));
+          setState(localStorage.getItem(key) as T);
         }
       } catch (e) {
         console.error("Local storage is unavailable:", e);
       }
     } else {
       SecureStore.getItemAsync(key).then((value: string | null) => {
-        setState(value);
+        setState(value as T);
       });
     }
   }, [key]);
 
   // Set
   const setValue = useCallback(
-    (value: string | null) => {
-      setState(value);
-      void setStorageItemAsync(key, value);
+    (value: T | null) => {
+      setState(value as T);
+
+      const stringify = value === null ? null : JSON.stringify(value);
+      void setStorageItemAsync(key, stringify);
     },
     [key],
   );
