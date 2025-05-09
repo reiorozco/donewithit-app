@@ -3,20 +3,27 @@ import { ListingData } from "@/screens/ListingEditScreen";
 
 const listingsEndpoint = "/listings";
 
-const getListings = () => apiClient.get(listingsEndpoint);
+const getListings = async () => {
+  const res = await apiClient.get(listingsEndpoint);
+
+  if (res.status >= 200 && res.status < 300) return res.data;
+
+  throw new Error(`Error getting listings: ${res.status}`);
+};
 
 const addListing = (
   listing: ListingData,
-  onUploadProgress: (arg0: number) => void,
+  onUploadProgress: (progress: number) => void,
 ) => {
   // if (listing.location)
   //   data.append("location", JSON.stringify(listing.location));
 
   return apiClient.post(listingsEndpoint, listing, {
-    onUploadProgress: (progress) => {
-      console.log("Progress object: ", progress);
+    onUploadProgress: (progressEvent) => {
+      console.log("Progress object: ", progressEvent);
 
-      return onUploadProgress(progress.loaded / (progress.total || 1));
+      const ratio = progressEvent.loaded / (progressEvent.total || 1);
+      onUploadProgress(ratio);
     },
   });
 };

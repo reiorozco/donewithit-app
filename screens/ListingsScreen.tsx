@@ -10,10 +10,13 @@ import AppButton from "@/components/AppButton";
 import AppText from "@/components/AppText";
 import Card from "@/components/Card";
 import Screen from "@/components/Screen";
+import useNetworkStatus from "@/hooks/useNetworkStatus";
+import cache from "@/utility/cache";
 import colors from "@/constants/colors";
 
 function ListingsScreen() {
   const router = useRouter();
+  const { isInternetReachable } = useNetworkStatus();
 
   const {
     data: listings,
@@ -22,9 +25,22 @@ function ListingsScreen() {
     isRefetching,
     refetch,
   } = useQuery({
-    queryFn: async () =>
-      await listingsApi.getListings().then((res) => res.data),
+    queryFn: async () => {
+      try {
+        const data = await listingsApi.getListings();
+        await cache.store("listings", data);
+
+        return data;
+      } catch (err) {
+        const fallback = await cache.get("listings");
+
+        if (fallback) return fallback;
+
+        throw err;
+      }
+    },
     queryKey: ["listings"],
+    staleTime: 1000 * 60 * 5, // 5 minutos
   });
 
   if (isLoading) return <AppActivityIndicator />;
