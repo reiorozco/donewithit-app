@@ -19,6 +19,7 @@ function ListingsScreen() {
     data: listings,
     error,
     isLoading,
+    isRefetching,
     refetch,
   } = useQuery({
     queryFn: async () =>
@@ -41,6 +42,8 @@ function ListingsScreen() {
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
+        onRefresh={refetch}
+        refreshing={isRefetching}
         renderItem={({ item }) => {
           return (
             <Card
