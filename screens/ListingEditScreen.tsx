@@ -108,6 +108,11 @@ function ListingEditScreen() {
   });
   const { isError, mutate: addListing } = useMutation({
     mutationFn: async (listing: ListingData) => {
+      const result = await listingsApi.addListing(listing, (progress) => {
+        console.log("Real progress: ", progress);
+        // setProgress(progress);
+      });
+
       // Simulate progressive loading
       for (let p = 0; p <= 100; p += 10) {
         await delay(100); // Simulate progress
@@ -116,10 +121,7 @@ function ListingEditScreen() {
       }
 
       // Real logic of the post
-      return await listingsApi.addListing(listing, (progress) => {
-        console.log("Real progress: ", progress);
-        // setProgress(progress);
-      });
+      return result;
     },
     mutationKey: ["addListing"],
     onError: (error) => {
