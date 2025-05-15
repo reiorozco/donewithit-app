@@ -8,7 +8,8 @@ import { z } from "zod";
 
 import { useSession } from "@/context/AuthContext";
 import AppButton from "@/components/AppButton";
-import { AppFormField } from "@/components/forms";
+import AppActivityIndicator from "@/components/AppActivityIndicator";
+import { AppFormField, ErrorMessage } from "@/components/forms";
 import routes from "@/constants/routes";
 
 const logoSource = require("@/assets/images/logo-red.png");
@@ -20,13 +21,13 @@ const schema = z.object({
   password: z.string().nonempty({ message: "Password is a required field" }),
 });
 
-type FormData = z.infer<typeof schema>;
+export type LoginFormData = z.infer<typeof schema>;
 
 function LoginScreen() {
   const router = useRouter();
-  const { signIn } = useSession();
+  const { error, isLoading, logIn } = useSession();
 
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<LoginFormData>({
     defaultValues: {
       email: "",
       password: "",
@@ -35,44 +36,51 @@ function LoginScreen() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     console.log("Login form submitted: ", data);
 
-    signIn(data.email);
+    await logIn(data);
+    if (error) return;
     // Navigate after signing in. You may want to tweak this to ensure sign-in is
     // successful before navigating.
     router.replace(routes.HOME);
   });
 
   return (
-    <View style={styles.container}>
-      <Image source={logoSource} style={styles.logo} />
+    <>
+      {isLoading && <AppActivityIndicator />}
 
-      <AppFormField
-        autoCapitalize="none"
-        autoCorrect={false}
-        control={control}
-        icon="email"
-        keyboardType="email-address"
-        name="email"
-        placeholder="Email"
-      />
+      <View style={styles.container}>
+        <Image source={logoSource} style={styles.logo} />
 
-      <AppFormField
-        autoCapitalize="none"
-        autoCorrect={false}
-        control={control}
-        icon="lock"
-        name="password"
-        placeholder="Password"
-        secureTextEntry
-        textContentType="password"
-      />
+        {error && <ErrorMessage error={error} />}
 
-      <View style={styles.submitButton}>
-        <AppButton onPress={onSubmit} title="Login" />
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          control={control}
+          icon="email"
+          keyboardType="email-address"
+          name="email"
+          placeholder="Email"
+        />
+
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          control={control}
+          icon="lock"
+          name="password"
+          placeholder="Password"
+          secureTextEntry
+          textContentType="password"
+        />
+
+        <View style={styles.submitButton}>
+          <AppButton onPress={onSubmit} title="Login" />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 

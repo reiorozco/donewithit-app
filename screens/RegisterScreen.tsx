@@ -7,8 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import AppButton from "@/components/AppButton";
-import { AppFormField } from "@/components/forms";
+import { AppFormField, ErrorMessage } from "@/components/forms";
 import routes from "@/constants/routes";
+import { useSession } from "@/context/AuthContext";
+import AppActivityIndicator from "@/components/AppActivityIndicator";
 
 const logoSource = require("@/assets/images/logo-red.png");
 
@@ -23,12 +25,13 @@ const schema = z.object({
     .min(5, { message: "Must be five or more characters long" }),
 });
 
-type FormData = z.infer<typeof schema>;
+export type RegisterFormData = z.infer<typeof schema>;
 
 function RegisterScreen() {
   const router = useRouter();
+  const { error, isLoading, register } = useSession();
 
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<RegisterFormData>({
     defaultValues: {
       email: "",
       name: "",
@@ -38,50 +41,58 @@ function RegisterScreen() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     console.log("Register form submitted: ", data);
 
-    // TODO: register logic
-    router.replace(routes.LOGIN);
+    await register(data);
+    if (error) return;
+
+    router.replace(routes.HOME);
   });
 
   return (
-    <View style={styles.container}>
-      <Image source={logoSource} style={styles.logo} />
+    <>
+      {isLoading && <AppActivityIndicator />}
 
-      <AppFormField
-        autoCapitalize="none"
-        autoCorrect={false}
-        control={control}
-        icon="email"
-        keyboardType="email-address"
-        name="email"
-        placeholder="Email"
-      />
+      <View style={styles.container}>
+        <Image source={logoSource} style={styles.logo} />
 
-      <AppFormField
-        autoCorrect={false}
-        control={control}
-        icon="account"
-        name="name"
-        placeholder="Name"
-      />
+        {error && <ErrorMessage error={error} />}
 
-      <AppFormField
-        autoCapitalize="none"
-        autoCorrect={false}
-        control={control}
-        icon="lock"
-        name="password"
-        placeholder="Password"
-        secureTextEntry
-        textContentType="password"
-      />
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          control={control}
+          icon="email"
+          keyboardType="email-address"
+          name="email"
+          placeholder="Email"
+        />
 
-      <View style={styles.submitButton}>
-        <AppButton color="secondary" onPress={onSubmit} title="Register" />
+        <AppFormField
+          autoCorrect={false}
+          control={control}
+          icon="account"
+          name="name"
+          placeholder="Name"
+        />
+
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          control={control}
+          icon="lock"
+          name="password"
+          placeholder="Password"
+          secureTextEntry
+          textContentType="password"
+        />
+
+        <View style={styles.submitButton}>
+          <AppButton color="secondary" onPress={onSubmit} title="Register" />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 

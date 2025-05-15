@@ -33,15 +33,15 @@ const avatarSource = require("@/assets/images/avatar.jpg");
 
 function AccountScreen() {
   const router = useRouter();
-  const { session, signOut } = useSession();
+  const { logOut, user } = useSession();
 
   return (
     <>
       <View style={styles.container}>
         <ListItem
           image={avatarSource}
-          subTitle={session?.email}
-          title="Rei Orozco"
+          subTitle={user?.email}
+          title={user?.name || "User Name"}
         />
       </View>
 
@@ -69,7 +69,7 @@ function AccountScreen() {
 
       <ListItem
         IconComponent={<Icon backgroundColor="#ffe66d" name="logout" />}
-        onPress={() => signOut()}
+        onPress={() => logOut()}
         title="Log Out"
       />
     </>

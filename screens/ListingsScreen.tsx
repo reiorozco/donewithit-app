@@ -63,7 +63,7 @@ function ListingsScreen() {
         renderItem={({ item }) => {
           return (
             <Card
-              image={item.image}
+              image={item.images[0].url}
               onPress={() =>
                 router.push(`/feed/details/${item.id.toString()}` as Href)
               }

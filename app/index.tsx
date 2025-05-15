@@ -6,13 +6,13 @@ import AppActivityIndicator from "@/components/AppActivityIndicator";
 import routes from "@/constants/routes";
 
 export default function Index() {
-  const { isLoading, session } = useSession();
+  const { isUserLoading: isLoading, user } = useSession();
 
   if (isLoading) {
     return <AppActivityIndicator />;
   }
 
-  if (!session) {
+  if (!user) {
     return <Redirect href={routes.WELCOME} />;
   }
 
