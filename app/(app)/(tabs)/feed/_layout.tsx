@@ -1,9 +1,12 @@
 import { Stack } from "expo-router";
+import Constants from "expo-constants";
 import { useEffect, useRef, useState } from "react";
+import { Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import Constants from "expo-constants";
-import { Platform } from "react-native";
+import { ExpoPushToken } from "expo-notifications";
+
+import expoPushTokensApi from "@/api/expoPushTokens";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -26,23 +29,29 @@ export default function FeedLayout() {
   // const [notification, setNotification] = useState<
   //   Notifications.Notification | undefined
   // >(undefined);
-  // const notificationListener = useRef<Notifications.EventSubscription>(null);
-  // const responseListener = useRef<Notifications.EventSubscription>(null);
+  const notificationListener = useRef<Notifications.EventSubscription>(null);
+  // const responseListenÓer = useRef<Notifications.EventSubscription>(null);
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(
-      (token) => token && setExpoPushToken(token),
-    );
+    registerForPushNotificationsAsync().then((token) => {
+      token && setExpoPushToken(token);
+      token &&
+        void expoPushTokensApi.register(
+          expoPushToken as unknown as ExpoPushToken,
+        );
+    });
 
     // if (Platform.OS === "android") {
     //   Notifications.getNotificationChannelsAsync().then((value) =>
     //     setChannels(value ?? []),
     //   );
     // }
-    // notificationListener.current =
-    //   Notifications.addNotificationReceivedListener((notification) => {
-    //     setNotification(notification);
-    //   });
+
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        // setNotification(notification);
+        console.log("notification: ", notification);
+      });
     //
     // responseListener.current =
     //   Notifications.addNotificationResponseReceivedListener((response) => {
@@ -57,7 +66,7 @@ export default function FeedLayout() {
     //   responseListener.current &&
     //     Notifications.removeNotificationSubscription(responseListener.current);
     // };
-  }, []);
+  }, [expoPushToken]);
 
   console.log("expoPushToken: ", expoPushToken);
 
@@ -101,6 +110,7 @@ async function registerForPushNotificationsAsync() {
       alert("Failed to get a push token for push notification!");
       return;
     }
+
     // Learn more about projectId:
     // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
     // EAS projectId is used here.
@@ -116,9 +126,10 @@ async function registerForPushNotificationsAsync() {
           projectId,
         })
       ).data;
-      console.log(token);
+      console.log("registerForPushNotificationsAsync: ", token);
     } catch (e) {
-      token = `${e}`;
+      token = "";
+      console.log(e);
     }
   } else {
     alert("Must use a physical device for Push Notifications");
