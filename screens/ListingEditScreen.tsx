@@ -16,6 +16,7 @@ import AppText from "@/components/AppText";
 import AppButton from "@/components/AppButton";
 import CategoryPickerItem from "@/components/CategoryPickerItem";
 import UploadScreen from "@/screens/UploadScreen";
+import Screen from "@/components/Screen";
 import { Item } from "@/components/PickerItem";
 
 const schema = z.object({
@@ -141,7 +142,7 @@ function ListingEditScreen() {
   });
 
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <UploadScreen
         onDone={() => setUploadVisible(false)}
         progress={progress}
@@ -190,7 +191,7 @@ function ListingEditScreen() {
       </View>
 
       {isError && <AppText>Could not save the listing.</AppText>}
-    </View>
+    </Screen>
   );
 }
 

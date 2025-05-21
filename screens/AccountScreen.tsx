@@ -5,6 +5,7 @@ import { Href, useRouter } from "expo-router";
 import { useSession } from "@/context/AuthContext";
 import Icon, { IconProps } from "@/components/Icon";
 import { ListItem, ListItemSeparator } from "@/components/lists";
+import Screen from "@/components/Screen";
 import colors from "@/constants/colors";
 
 const menuItems: {
@@ -36,7 +37,7 @@ function AccountScreen() {
   const { logOut, user } = useSession();
 
   return (
-    <>
+    <Screen>
       <View style={styles.container}>
         <ListItem
           image={avatarSource}
@@ -72,7 +73,7 @@ function AccountScreen() {
         onPress={() => logOut()}
         title="Log Out"
       />
-    </>
+    </Screen>
   );
 }
 
