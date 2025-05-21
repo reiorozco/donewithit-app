@@ -1,39 +1,47 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
 
-import AppText from "@/components/AppText";
 import { ListItem } from "@/components/lists";
+import AppText from "@/components/AppText";
+import ContactSellerForm from "@/components/ContactSellerForm";
 import colors from "@/constants/colors";
+import listingsApi from "@/api/listings";
 
 const avatarSource = require("@/assets/images/avatar.jpg");
-
-const listings = [
-  {
-    id: 1,
-    image: require("../assets/images/jacket.jpg"),
-    price: 100,
-    title: "Red jacket for sale",
-  },
-  {
-    id: 2,
-    image: require("../assets/images/couch.jpg"),
-    price: 1000,
-    title: "Couch in great condition",
-  },
-];
 
 function ListingDetailsScreen() {
   const { id } = useLocalSearchParams();
 
-  const item = listings.find((l) => l.id.toString() === id); // Simula fetch
+  const {
+    data: item,
+    error,
+    isLoading,
+    isRefetching,
+    refetch,
+  } = useQuery({
+    queryFn: () => listingsApi.getListing(id as string),
+    queryKey: ["listing"],
+    staleTime: 0,
+  });
 
-  if (!item) return <Text>Item not found</Text>;
+  if (!item || error) return <Text>Item not found</Text>;
 
   return (
-    <View>
-      <Image source={item.image} style={styles.image} />
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+      style={{ flex: 1 }}
+    >
+      <Image source={{ uri: item.images[0].url }} style={styles.image} />
 
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{item.title}</AppText>
@@ -46,8 +54,10 @@ function ListingDetailsScreen() {
             title="Rei Orozco"
           />
         </View>
+
+        <ContactSellerForm listing={item} />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

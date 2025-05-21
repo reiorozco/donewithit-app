@@ -3,6 +3,14 @@ import { ListingData } from "@/screens/ListingEditScreen";
 
 const listingsEndpoint = "/listings";
 
+const getListing = async (id: string) => {
+  const res = await apiClient.get(`/listing/${id}`);
+
+  if (res.status >= 200 && res.status < 300) return res.data;
+
+  throw new Error(`Error getting listing: ${res.status}`);
+};
+
 const getListings = async () => {
   const res = await apiClient.get(listingsEndpoint);
 
@@ -30,5 +38,6 @@ const addListing = (
 
 export default {
   addListing,
+  getListing,
   getListings,
 };
