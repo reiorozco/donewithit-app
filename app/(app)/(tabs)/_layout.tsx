@@ -15,7 +15,7 @@ function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarStyle: {
-          height: 60,
+          height: 70,
         },
       }}
     >
