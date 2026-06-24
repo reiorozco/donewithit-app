@@ -1,50 +1,66 @@
-# Welcome to your Expo app 👋
+<h1 align="center">📦 DoneWithIt</h1>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+  A React Native (Expo) marketplace app to buy and sell items locally.
+</p>
 
-## Get started
+<p align="center">
+  <img src="https://img.shields.io/badge/React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge"/>
+</p>
 
-1. Install dependencies
+## ✨ Features
 
-   ```bash
-   npm install
-   ```
+- 🛍️ Browse, post and manage listings
+- 🔐 Authentication with JWT
+- 📷 Image upload and image picker
+- 📍 Geolocation tagging for listings
+- 🔔 Push notifications (Expo Notifications)
+- 📶 Offline awareness (NetInfo) and secure storage
+- 🎬 Loading/animations with Lottie & Reanimated
 
-2. Start the app
+## 🛠️ Tech Stack
 
-   ```bash
-   npx expo start
-   ```
+- **Core:** React Native · Expo (Expo Router) · TypeScript
+- **Navigation:** Expo Router · React Navigation
+- **Data:** TanStack Query · Axios
+- **Forms:** React Hook Form · Zod
+- **Native:** Expo Image/Location/Notifications/SecureStore · Reanimated · Gesture Handler
 
-In the output, you'll find options to open the app in a
+## 🚀 Getting Started
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Prerequisites
+- Node.js 18+
+- [Expo Go](https://expo.dev/go) app (iOS/Android) or an emulator
+- A running backend exposing the API
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+### Installation
 ```bash
-npm run reset-project
+git clone https://github.com/reiorozco/donewithit-app.git
+cd donewithit-app
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Environment variables
+Create a `.env` file based on `.env.example`:
+```env
+EXPO_PUBLIC_API_URL=https://your-api-url.com
+```
 
-## Learn more
+### Run
+```bash
+npm start        # start Expo dev server
+npm run android  # open on Android
+npm run ios      # open on iOS
+npm run web      # open in browser
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📸 Screenshots
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+> _Add screenshots or a screen-recording GIF of the app here._
 
-## Join the community
+## 📄 License
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Released under the [MIT License](LICENSE).
