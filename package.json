@@ -65,7 +65,7 @@
     "eslint-plugin-perfectionist": "^4.12.3",
     "eslint-plugin-prettier": "^5.5.6",
     "prettier": "^3.8.4",
-    "typescript": "~5.8.3"
+    "typescript": "~6.0.3"
   },
   "private": true
 }
